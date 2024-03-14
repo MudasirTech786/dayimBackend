@@ -124,7 +124,7 @@ return [
 
     'key' => env('APP_KEY'),
 
-    'cipher' => 'AES-256-CBC',
+    'cipher' => 'aes-256-cbc',
 
     /*
     |--------------------------------------------------------------------------
@@ -163,12 +163,12 @@ return [
         /*
          * Application Service Providers...
          */
-        Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 
     /*

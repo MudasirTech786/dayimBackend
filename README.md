@@ -64,3 +64,9 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## For Laravel Scheduler Run Comand is:
+
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+
+
