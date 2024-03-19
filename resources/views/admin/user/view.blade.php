@@ -16,11 +16,11 @@
                     [0, "desc"]
                 ],
                 "sPaginationType": "full_numbers",
-                "sAjaxSource": "{{ url('get_users') }}",
                 "aLengthMenu": [
                     [10, 50, 100, 500],
                     [10, 50, 100, 500]
-                ]
+                ],
+                "sAjaxSource": "{{ url('get_users') }}",
             });
         });
 

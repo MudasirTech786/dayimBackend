@@ -29,19 +29,19 @@
             @endif
 
             {{-- @if (auth()->user()->can('routes-create') || auth()->user()->can('routes-list')) --}}
-                <li class="nav-item"><a href="{{ request()->routeIs('routes.index') ? 'active' : '' }}"><i
+                <li class="nav-item"><a href="{{ request()->routeIs('dayim.index') ? 'active' : '' }}"><i
                             class="la la-car"></i><span class="menu-title" data-i18n="nav.dash.main">Dayim Marketing</span></a>
                     <ul class="menu-content">
 
                         {{-- @can('routes-create') --}}
                             <li class="{{ request()->routeIs('routes.create') ? 'active' : '' }}">
-                                <a class="menu-item" href="{{ route('routes.create') }}" data-i18n="nav.dash.ecommerce">Add
+                                <a class="menu-item" href="{{ route('dayim.create') }}" data-i18n="nav.dash.ecommerce">Add
                                     Event</a>
                             </li>
                         {{-- @endcan
                         @can('routes-list') --}}
                             <li class="{{ request()->routeIs('routes.index') ? 'active' : '' }}">
-                                <a class="menu-item" href="{{ route('routes.index') }}" data-i18n="nav.dash.ecommerce">View
+                                <a class="menu-item" href="{{ route('dayim.index') }}" data-i18n="nav.dash.ecommerce">View
                                     Event</a>
                             </li>
                         {{-- @endcan --}}
@@ -50,19 +50,19 @@
             {{-- @endif --}}
             
             {{-- @if (auth()->user()->can('routes-create') || auth()->user()->can('routes-list')) --}}
-                <li class="nav-item"><a href="{{ request()->routeIs('routes.index') ? 'active' : '' }}"><i
+                <li class="nav-item"><a href="{{ request()->routeIs('dsa.index') ? 'active' : '' }}"><i
                             class="la la-car"></i><span class="menu-title" data-i18n="nav.dash.main">DSA</span></a>
                     <ul class="menu-content">
 
                         {{-- @can('routes-create') --}}
                             <li class="{{ request()->routeIs('routes.create') ? 'active' : '' }}">
-                                <a class="menu-item" href="{{ route('routes.create') }}" data-i18n="nav.dash.ecommerce">Add
+                                <a class="menu-item" href="{{ route('dsa.create') }}" data-i18n="nav.dash.ecommerce">Add
                                     Event</a>
                             </li>
                         {{-- @endcan
                         @can('routes-list') --}}
                             <li class="{{ request()->routeIs('routes.index') ? 'active' : '' }}">
-                                <a class="menu-item" href="{{ route('routes.index') }}" data-i18n="nav.dash.ecommerce">View
+                                <a class="menu-item" href="{{ route('dsa.index') }}" data-i18n="nav.dash.ecommerce">View
                                     Event</a>
                             </li>
                         {{-- @endcan --}}

@@ -2,20 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TransportController;
-use App\Http\Controllers\HotelController;
-use App\Http\Controllers\WeekendController;
-use App\Http\Controllers\RouteController;
-use App\Http\Controllers\CostController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\VisaController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\DSAController;
+use App\Http\Controllers\DayimController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\WebsiteController;
-use App\Http\Controllers\FrontHotelController;
-use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\TestimonialController;
+
+use App\Models\Dayim;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +31,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', UserController::class);
     Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware('check.permission:users-list');
     Route::get('/get_users', [UserController::class, 'get_users']);
-
+    
     Route::resource('roles', RoleController::class);
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index')->middleware('check.permission:roles-list');
+    
+    Route::resource('dayim', DayimController::class);
+    Route::get('/get_dayim_events', [DayimController::class, 'get_dayim_events']);
+    
+    Route::resource('dsa', DSAController::class);
+    Route::get('/get_dsa_events', [DSAController::class, 'get_dsa_events']);
 });
 
 
