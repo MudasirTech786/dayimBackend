@@ -23,6 +23,13 @@ class DSAController extends Controller
     {
         return view('admin.dsa.create');
     }
+    
+    
+    public function dsa_events_api()
+    {
+        $dayims = DSA::all();
+        return response()->json($dayims);
+    }
 
     /**
      * Store a newly created resource in storage.

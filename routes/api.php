@@ -1,7 +1,10 @@
 <?php
 
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DSAController;
+use App\Http\Controllers\DayimController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/dsa_events', [DSAController::class, 'dsa_events_api']);
+Route::get('/dm_events', [DayimController::class, 'dm_events_api']);

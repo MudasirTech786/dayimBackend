@@ -24,6 +24,13 @@ class DayimController extends Controller
         return view('admin.dayim.create');
     }
 
+    public function dm_events_api()
+    {
+        $dayims = Dayim::all();
+        return response()->json($dayims);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */

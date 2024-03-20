@@ -27,7 +27,7 @@
                             @csrf
                             <div class="form-body">
                                 <h4 class="form-section"><i class="la la la-car"></i>Add User</h4>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Profile Picture</label>
@@ -36,7 +36,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
