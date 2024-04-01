@@ -40,53 +40,52 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">First Name</label>
+                                            <label class="col-md-3 label-control" for="name">Name</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
-                                                    placeholder="First Name" name="first_name" >
+                                                    placeholder="Name" name="name" id="name" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Last Name</label>
+                                        <label class="col-md-3 label-control" for="email">Email</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
-                                                placeholder="Last Name" name="last_name" required>
+                                                placeholder="Email" name="email" id="email" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Email</label>
+                                            <label class="col-md-3 label-control" for="cnic">CNIC</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
-                                                    placeholder="Email" name="email" required>
+                                                    placeholder="CNIC" name="cnic" required id="cnic">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Password</label>
+                                        <label class="col-md-3 label-control" for="password">Password</label>
                                         <div class="col-md-9">
                                             <input type="password" class="form-control border-primary" placeholder="Password"
-                                                name="password" required>
+                                                name="password" required id="password">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">DOB</label>
+                                            <label class="col-md-3 label-control" for="dob">DOB</label>
                                             <div class="col-md-9">
-                                                <input type="date" class="form-control border-primary" name="dob"
-                                                    >
+                                                <input type="date" class="form-control border-primary" name="dob" id="dob">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Gender</label>
+                                        <label class="col-md-3 label-control" for="gender">Gender</label>
                                         <div class="col-md-9">
-                                            <select class="form-control border-primary" name="gender" >
+                                            <select class="form-control border-primary" name="gender" id="gender" >
                                                 <option selected disabled="">Select Gender</option>
                                                 <option value="M">Male</option>
                                                 <option value="F">Female</option>
@@ -97,38 +96,38 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">ID Card</label>
+                                            <label class="col-md-3 label-control" for="phone">Phone</label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Card Number" name="id_card" >
+                                                    placeholder="Phone" name="phone" id="phone" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Designation</label>
+                                        <label class="col-md-3 label-control" for="occupation">Occupation</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
-                                                placeholder="Designation" name="designation" >
+                                                placeholder="Designation" name="occupation" id="occupation" >
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Phone</label>
+                                            <label class="col-md-3 label-control" for="address">Address</label>
                                             <div class="col-md-9">
-                                                <input type="number" class="form-control border-primary"
-                                                    placeholder="Phone" name="phone" >
+                                                <input type="address" class="form-control border-primary"
+                                                    placeholder="Address" name="address" id="address" >
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Address</label>
+                                    {{-- <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="image">Image</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Address" name="address" >
+                                            <input type="file" class="form-control border-primary"
+                                                name="image" id="image" >
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">

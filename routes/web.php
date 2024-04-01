@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DSAController;
 use App\Http\Controllers\DayimController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\ProductsController;
 
 use App\Models\Dayim;
 
@@ -40,6 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::resource('dsa', DSAController::class);
     Route::get('/get_dsa_events', [DSAController::class, 'get_dsa_events']);
+
+    Route::resource('products', ProductsController::class);
 });
 
 
