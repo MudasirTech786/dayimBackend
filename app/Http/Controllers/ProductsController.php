@@ -14,6 +14,12 @@ class ProductsController extends Controller
         return view('admin.products.index');
     }
 
+    public function show_sale(Request $request)
+    {
+        return view('admin.products.sales');
+    }
+    
+
     /**
      * Show the form for creating a new resource.
      */
