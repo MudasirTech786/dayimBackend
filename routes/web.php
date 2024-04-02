@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -44,10 +46,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('products', ProductsController::class);
     Route::get('/get_products_sales', [ProductsController::class, 'show_sale']);
-    // Route::get('/products/sales', function () {
-    //     return view('admin.products.sales');
-    // });
-
+    
+    Route::resource('booking', BookingController::class);
+    
+    Route::resource('payment', PaymentController::class);
+    
 });
 
 
