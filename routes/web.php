@@ -45,11 +45,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get_dsa_events', [DSAController::class, 'get_dsa_events']);
 
     Route::resource('products', ProductsController::class);
+    Route::get('get_products', [ProductsController::class, 'get_products']);
     Route::get('/get_products_sales', [ProductsController::class, 'show_sale']);
     
-    Route::resource('booking', BookingController::class);
+    Route::resource('bookings', BookingController::class);
     
-    Route::resource('payment', PaymentController::class);
+    Route::resource('payments', PaymentController::class);
     
 });
 

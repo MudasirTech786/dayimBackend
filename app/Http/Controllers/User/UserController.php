@@ -27,8 +27,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'name' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -39,15 +38,15 @@ class UserController extends Controller
         // $input = $request->all();
         // $input['password'] = Hash::make($input['password']);
         $user = new User();
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->cnic = $request->cnic;
         $user->dob = $request->dob;
         $user->gender = $request->gender;
-        $user->id_card = $request->id_card;
-        $user->designation = $request->designation;
+        $user->occupation = $request->occupation;
         $user->phone = $request->phone;
         $user->address = $request->address;
-        $user->email = $request->email;
+        $user->active = $request->active;
         $user->password = Hash::make($request->password);
 
         if ($request->hasFile('image')) {
@@ -144,13 +143,12 @@ class UserController extends Controller
                           </label>";
 
             $hotel_id = $aRow->id;
-            $first_name = $aRow->first_name;
-            $last_name = $aRow->last_name;
+            $name = $aRow->name;
             $email = $aRow->email;
-            $id_card = $aRow->id_card;
-            $designation = $aRow->designation;
-            $role = $aRow->getRoleNames();
+            $id_card = $aRow->cnic;
             $phone = $aRow->phone;
+            $designation = $aRow->occupation;
+            $role = $aRow->getRoleNames();
             $address = $aRow->address;
 
             $action = "<span class=\"dropdown\">
@@ -165,10 +163,10 @@ class UserController extends Controller
 
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
-                @$last_name,
+                @$name,
                 @$email,
                 @$id_card,
-                @$phone,
+                @$designation,
                 @$role,
                 @$action,
             );
@@ -180,17 +178,17 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $route = User::findOrFail($id);
+        $user = User::findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
-        return view('admin.user.edit', compact('route'), compact('roles'));
+        return view('admin.user.edit', compact('user'), compact('roles'));
     }
 
     public function update(Request $request, string $id)
     {
 
         $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'name' => 'required',
+            'cnic' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -199,15 +197,15 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->cnic = $request->cnic;
         $user->dob = $request->dob;
         $user->gender = $request->gender;
-        $user->id_card = $request->id_card;
-        $user->designation = $request->designation;
+        $user->occupation = $request->occupation;
         $user->phone = $request->phone;
         $user->address = $request->address;
-        $user->email = $request->email;
+        $user->active = $request->active;
         if ($request->password != null) {
             $user->password = Hash::make($request->password);
         }

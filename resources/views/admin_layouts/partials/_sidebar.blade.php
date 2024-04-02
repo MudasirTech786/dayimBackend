@@ -55,13 +55,13 @@
 
                     {{-- @can('routes-create') --}}
                     <li class="{{ request()->routeIs('routes.create') ? 'active' : '' }}">
-                        <a class="menu-item" href="{{ route('booking.create') }}" data-i18n="nav.dash.ecommerce">Add
+                        <a class="menu-item" href="{{ route('bookings.create') }}" data-i18n="nav.dash.ecommerce">Add
                             Booking</a>
                     </li>
                     {{-- @endcan
     @can('routes-list') --}}
                     <li class="{{ request()->routeIs('routes.index') ? 'active' : '' }}">
-                        <a class="menu-item" href="{{ route('booking.index') }}" data-i18n="nav.dash.ecommerce">View
+                        <a class="menu-item" href="{{ route('bookings.index') }}" data-i18n="nav.dash.ecommerce">View
                             Bookings</a>
                     </li>
                     {{-- @endcan --}}
@@ -74,13 +74,13 @@
 
                     {{-- @can('routes-create') --}}
                     <li class="{{ request()->routeIs('routes.create') ? 'active' : '' }}">
-                        <a class="menu-item" href="{{ route('payment.create') }}" data-i18n="nav.dash.ecommerce">Add
+                        <a class="menu-item" href="{{ route('payments.create') }}" data-i18n="nav.dash.ecommerce">Add
                             Payment</a>
                     </li>
                     {{-- @endcan
 @can('routes-list') --}}
                     <li class="{{ request()->routeIs('routes.index') ? 'active' : '' }}">
-                        <a class="menu-item" href="{{ route('payment.index') }}" data-i18n="nav.dash.ecommerce">View
+                        <a class="menu-item" href="{{ route('payments.index') }}" data-i18n="nav.dash.ecommerce">View
                             Payments</a>
                     </li>
                     {{-- @endcan --}}

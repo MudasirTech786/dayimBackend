@@ -18,7 +18,7 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('dsa.store') }}"
+                        <form class="form form-horizontal" method="POST" action="{{ route('products.store') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-body">
@@ -131,7 +131,7 @@
                                         <label class="col-md-3 label-control" for="image">Image</label>
                                         <div class="col-md-9">
                                             <input type="file" class="form-control border-primary" name="image"
-                                                id="image" required>
+                                                id="image">
                                         </div>
                                     </div>
                                 </div>
@@ -140,12 +140,12 @@
                                         <i class="la la-check-square-o"></i> Save
                                     </button>
                                 </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 @section('script')

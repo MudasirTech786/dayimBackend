@@ -35,7 +35,7 @@
                     <form class="form-horizontal form-simple" method="POST" action="{{ route('login') }}" novalidate>
                       @csrf
                       <fieldset class="form-group position-relative has-icon-left mb-10">
-                        <input type="text" name="email" class="form-control form-control-lg input-lg" id="user-name" placeholder="Your Email"
+                        <input type="text" name="cnic" class="form-control form-control-lg input-lg" id="user-name" placeholder="Your CNIC"
                         required>
                         <div class="form-control-position">
                           <i class="ft-user"></i>

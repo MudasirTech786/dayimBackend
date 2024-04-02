@@ -19,7 +19,7 @@
                     @endif
                     <div class="card-body">
 
-                        <form class="form form-horizontal" method="POST" action="{{ route('dsa.store') }}"
+                        <form class="form form-horizontal" method="POST" action="{{ route('bookings.store') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-body">
@@ -32,6 +32,9 @@
                                                 <select class="form-control border-primary" name="user" id="user"
                                                     required>
                                                     <option value="">Select User</option>
+                                                    @foreach ($user as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -42,6 +45,9 @@
                                             <select class="form-control border-primary" name="product" id="product"
                                                 required>
                                                 <option value="">Select Product</option>
+                                                @foreach ($product as $product)
+                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            @endforeach
                                             </select>
                                         </div>
                                     </div>

@@ -22,7 +22,7 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('users.update', $route->id) }}"
+                        <form class="form form-horizontal" method="POST" action="{{ route('users.update', $user->id) }}"
                             enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
@@ -58,90 +58,28 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">First Name</label>
+                                            <label class="col-md-3 label-control" for="name">Name</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="First Name" value="{{ $route->first_name }}"
-                                                    name="first_name">
+                                                <input type="text" class="form-control border-primary" placeholder="Name"
+                                                    name="name" value="{{ $user->name }}" id="name">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Last Name</label>
+                                        <label class="col-md-3 label-control" for="email">Email</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Last Name" value="{{ $route->last_name }}" name="last_name">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">DOB</label>
-                                            <div class="col-md-9">
-                                                <input type="date" value="{{ $route->dob }}"
-                                                    class="form-control border-primary" name="dob">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Gender</label>
-                                        <div class="col-md-9">
-                                            <select class="form-control border-primary" value="{{ $route->gender }}"
-                                                name="gender">
-                                                <option selected>Select Gender</option>
-                                                <option value="M"selected>Male</option>
-                                                <option value="F">Female</option>
-                                            </select>
+                                            <input type="text" class="form-control border-primary" placeholder="Email"
+                                                name="email" value="{{ $user->email }}" id="email" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">ID Card</label>
+                                            <label class="col-md-3 label-control" for="cnic">CNIC</label>
                                             <div class="col-md-9">
-                                                <input type="number" value="{{ $route->id_card }}"
-                                                    class="form-control border-primary" placeholder="Card Number"
-                                                    name="id_card">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Designation</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Designation" value="{{ $route->designation }}"
-                                                name="designation">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Phone</label>
-                                            <div class="col-md-9">
-                                                <input type="number" class="form-control border-primary"
-                                                    placeholder="Phone" value="{{ $route->phone }}" name="phone">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Address</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Address" name="address" value="{{ $route->address }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Email</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Email" value="{{ $route->email }}" name="email">
+                                                <input type="text" class="form-control border-primary" placeholder="CNIC"
+                                                    name="cnic" value="{{ $user->cnic }}" required id="cnic">
                                             </div>
                                         </div>
                                     </div>
@@ -152,6 +90,76 @@
                                                 name="password">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="dob">DOB</label>
+                                            <div class="col-md-9">
+                                                <input type="date" value="{{ $user->dob }}" class="form-control border-primary" name="dob"
+                                                    id="dob">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="gender">Gender</label>
+                                        <div class="col-md-9">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="maleGenderRadio" name="gender" value="M"
+                                                    {{ $user->gender == 'M' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="maleGenderRadio">Male</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="femaleGenderRadio" name="gender" value="F"
+                                                    {{ $user->gender == 'F' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="femaleGenderRadio">Female</label>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="occupation">Occupation</label>
+                                            <div class="col-md-9">
+                                                <input value="{{ $user->occupation }}" type="text" class="form-control border-primary"
+                                                    placeholder="Designation" name="occupation" id="occupation">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="phone">Phone</label>
+                                        <div class="col-md-9">
+                                            <input type="number"  value="{{ $user->phone }}" class="form-control border-primary" placeholder="Phone"
+                                                name="phone" id="phone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="address">Address</label>
+                                            <div class="col-md-9">
+                                                <input type="address" value="{{ $user->address }}" class="form-control border-primary"
+                                                    placeholder="Address" name="address" id="address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="address">Active</label>
+                                        <div class="col-md-9">
+                                            <input type="checkbox" class="form-check-input" id="activeUserCheckbox" name="activeUser" value="1"
+                                            {{ $user->active ? 'checked' : '' }}>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="image">Image</label>
+                                        <div class="col-md-9">
+                                            <input type="file" class="form-control border-primary"
+                                                name="image" id="image" >
+                                        </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">

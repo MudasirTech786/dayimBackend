@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -54,5 +55,31 @@ class LoginController extends Controller
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect('/login');
+    }
+
+
+    // Override the username method to return the column name used for CNIC
+    public function username()
+    {
+        return 'cnic';
+    }
+
+    // Override the login method to use CNIC for authentication
+    public function login(Request $request)
+    {
+        $request->validate([
+            'cnic' => 'required|string', // Add any additional validation rules here
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('cnic', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed
+            return redirect()->intended('home'); // Redirect to dashboard or any desired route
+        }
+
+        // Authentication failed
+        return back()->withErrors(['cnic' => 'Invalid CNIC or password'])->withInput($request->only('cnic'));
     }
 }

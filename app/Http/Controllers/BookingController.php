@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -19,7 +22,9 @@ class BookingController extends Controller
      */
     public function create()
     {
-        return view('admin.booking.create');
+        $user = User::all();
+        $product = Product::all();
+        return view('admin.booking.create', compact('user', 'product'));
     }
 
     /**
@@ -27,7 +32,19 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user' => 'required|exists:users,id',
+            'product' => 'required|exists:products,id',
+        ]);
+    
+        // Create a new booking entry
+        Booking::create([
+            'user_id' => $request->user,
+            'product_id' => $request->product,
+        ]);
+    
+        return redirect()->route('bookings.index')->with('success', 'Booking has been Added successfully!');
+    
     }
 
     /**

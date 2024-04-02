@@ -42,16 +42,16 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="name">Name</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Name" name="name" id="name" >
+                                                <input type="text" class="form-control border-primary" placeholder="Name"
+                                                    name="name" id="name">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="email">Email</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Email" name="email" id="email" required>
+                                            <input type="text" class="form-control border-primary" placeholder="Email"
+                                                name="email" id="email" required>
                                         </div>
                                     </div>
                                 </div>
@@ -60,16 +60,16 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="cnic">CNIC</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="CNIC" name="cnic" required id="cnic">
+                                                <input type="text" class="form-control border-primary" placeholder="CNIC"
+                                                    name="cnic" required id="cnic">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="password">Password</label>
                                         <div class="col-md-9">
-                                            <input type="password" class="form-control border-primary" placeholder="Password"
-                                                name="password" required id="password">
+                                            <input type="password" class="form-control border-primary"
+                                                placeholder="Password" name="password" required id="password">
                                         </div>
                                     </div>
                                 </div>
@@ -78,36 +78,43 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="dob">DOB</label>
                                             <div class="col-md-9">
-                                                <input type="date" class="form-control border-primary" name="dob" id="dob">
+                                                <input type="date" class="form-control border-primary" name="dob"
+                                                    id="dob">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="gender">Gender</label>
                                         <div class="col-md-9">
-                                            <select class="form-control border-primary" name="gender" id="gender" >
-                                                <option selected disabled="">Select Gender</option>
-                                                <option value="M">Male</option>
-                                                <option value="F">Female</option>
-                                            </select>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="maleGenderRadio"
+                                                    name="gender" value="M">
+                                                <label class="form-check-label" for="maleGenderRadio">Male</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="femaleGenderRadio"
+                                                    name="gender" value="F">
+                                                <label class="form-check-label" for="femaleGenderRadio">Female</label>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="phone">Phone</label>
+                                            <label class="col-md-3 label-control" for="occupation">Occupation</label>
                                             <div class="col-md-9">
-                                                <input type="number" class="form-control border-primary"
-                                                    placeholder="Phone" name="phone" id="phone" >
+                                                <input type="text" class="form-control border-primary"
+                                                    placeholder="Designation" name="occupation" id="occupation">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="occupation">Occupation</label>
+                                        <label class="col-md-3 label-control" for="phone">Phone</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Designation" name="occupation" id="occupation" >
+                                            <input type="number" class="form-control border-primary" placeholder="Phone"
+                                                name="phone" id="phone">
                                         </div>
                                     </div>
                                 </div>
@@ -117,8 +124,15 @@
                                             <label class="col-md-3 label-control" for="address">Address</label>
                                             <div class="col-md-9">
                                                 <input type="address" class="form-control border-primary"
-                                                    placeholder="Address" name="address" id="address" >
+                                                    placeholder="Address" name="address" id="address">
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="address">Active</label>
+                                        <div class="col-md-9">
+                                            <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
+                                                name="active" value="1">
                                         </div>
                                     </div>
                                     {{-- <div class="col-md-6 row">
