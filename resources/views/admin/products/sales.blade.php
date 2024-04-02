@@ -54,7 +54,7 @@
                                                 <th>Paid Amount</th>
                                                 <th>Amount</th>
                                                 <th>Surcharge</th>
-                                                <th>Payment Received</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody id="recordsBody">
@@ -77,8 +77,12 @@
                                                         name="amount"></td>
                                                 <td><input type="text" class="form-control custom-input" id="surcharge"
                                                         name="surcharge"></td>
-                                                <td><input type="text" class="form-control custom-input"
-                                                        id="payment_received" name="payment_received"></td>
+                                                <td>
+                                                    <button class="btn btn-primary">Save</button>
+                                                    <button class="btn btn-secondary">Edit</button>
+                                                    <button class="btn btn-danger">Delete</button>
+                                                    <button class="btn btn-success">Complete</button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
