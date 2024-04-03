@@ -18,9 +18,8 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <h2 class="text-success font-bold">No payment to add</h2>
                         {{-- <h2 class="text-success font-bold">You have 5 payments to add</h2> --}}
-                        <form class="form form-horizontal" method="POST" action="{{ route('dsa.store') }}"
+                        <form class="form form-horizontal" method="POST" action="{{ route('payments.store_proof', $payment['id']) }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-body">
@@ -30,10 +29,8 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="pay_head">Pay Head</label>
                                             <div class="col-md-9">
-                                                <select class="form-control border-primary" name="pay_head" id="pay_head"
-                                                    required>
-                                                    <option value="">Select Pay Head</option>
-                                                </select>
+                                                <input type="text" disabled class="form-control border-primary" value="{{$payment['pay_head']}}"
+                                                name="pay_head" id="pay_head" required>
                                             </div>
                                         </div>
                                     </div>
@@ -41,7 +38,7 @@
                                         <label class="col-md-3 label-control" for="due_date">Due Date</label>
                                         <div class="col-md-9">
                                             <input type="date" disabled class="form-control border-primary"
-                                                name="due_date" id="due_date" required>
+                                                name="due_date" id="due_date" value="{{$payment['due_date']}}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +49,7 @@
                                             <label class="col-md-3 label-control" for="due_amount">Due amount</label>
                                             <div class="col-md-9">
                                                 <input type="text" placeholder="Due Amount"
-                                                    class="form-control border-primary" name="due_amount" id="due_amount"
+                                                    class="form-control border-primary" name="due_amount" value="{{$payment['due_amount']}}" id="due_amount"
                                                     disabled>
                                             </div>
                                         </div>
@@ -60,10 +57,29 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="payment_proof">Payment Proof</label>
                                         <div class="col-md-9">
-                                            <input type="file" class="form-control border-primary" name="payment_proof"
-                                                id="payment_proof" required>
+                                            <input type="file" class="form-control border-primary" name="prof_image"
+                                                id="prof_image" required>
                                         </div>
                                     </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="due_amount">Payment Proof</label>
+                                            <div class="col-md-9">
+                                                @if (isset($payment['prof_image']))
+                                                <img src="{{ asset('proofs/' . $payment['prof_image']) }}" alt="Due Amount Image">
+                                           
+                                            @else
+                                            <input type="text" class="form-control" value="Proof Not Added" disabled>
+                                            @endif
+                                                
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
 
                                 <div class="form-actions right">

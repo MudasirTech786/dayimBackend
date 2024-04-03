@@ -71,14 +71,7 @@
             <li class="nav-item"><a href="{{ request()->routeIs('dsa.index') ? 'active' : '' }}"><i
                         class="la la-money"></i><span class="menu-title" data-i18n="nav.dash.main">Payments</span></a>
                 <ul class="menu-content">
-
-                    {{-- @can('routes-create') --}}
-                    <li class="{{ request()->routeIs('routes.create') ? 'active' : '' }}">
-                        <a class="menu-item" href="{{ route('payments.create') }}" data-i18n="nav.dash.ecommerce">Add
-                            Payment</a>
-                    </li>
-                    {{-- @endcan
-@can('routes-list') --}}
+                    {{-- @can('routes-list') --}}
                     <li class="{{ request()->routeIs('routes.index') ? 'active' : '' }}">
                         <a class="menu-item" href="{{ route('payments.index') }}" data-i18n="nav.dash.ecommerce">View
                             Payments</a>

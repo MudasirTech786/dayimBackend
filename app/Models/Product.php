@@ -11,4 +11,10 @@ class Product extends Model
     protected $fillable = [
         'name', 'form_number', 'sales_value',
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+    
 }

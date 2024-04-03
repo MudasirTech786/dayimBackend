@@ -46,12 +46,16 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('products', ProductsController::class);
     Route::get('get_products', [ProductsController::class, 'get_products']);
-    Route::get('/get_products_sales', [ProductsController::class, 'show_sale']);
     
     Route::resource('bookings', BookingController::class);
+    Route::get('get_bookings', [BookingController::class, 'get_bookings']);
+    Route::get('/sales/{id}', [BookingController::class, 'show_sale']);
     
     Route::resource('payments', PaymentController::class);
-    
+    Route::get('/get_payments', [PaymentController::class, 'getPayments'])->name('get_payments');
+    Route::get('/add_payment/{id}', [PaymentController::class, 'add_payment']);
+    Route::post('payments/{id}', [PaymentController::class, 'store_proof'])->name('payments.store_proof');
+
 });
 
 

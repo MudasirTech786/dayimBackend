@@ -6,73 +6,73 @@
     <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
-        // $(document).ready(function() {
-        //     $('#link_table').DataTable({
-        //         "aoColumnDefs": [{
-        //             "bSortable": false,
-        //             "aTargets": [0, 2]
-        //         }],
-        //         "bProcessing": true,
-        //         "bServerSide": true,
-        //         "aaSorting": [
-        //             [0, "desc"]
-        //         ],
-        //         "sPaginationType": "full_numbers",
-        //         "aLengthMenu": [
-        //             [10, 50, 100, 500],
-        //             [10, 50, 100, 500]
-        //         ],
-        //         "sAjaxSource": "{{ url('/get_dsa_Products') }}",
-        //     });
-        // });
 
-        // function deleteProduct(id) {
-        //     swal({
-        //             title: "Are you sure？",
-        //             text: "Do you want to delete this Product",
-        //             icon: "warning",
-        //             buttons: {
-        //                 cancel: {
-        //                     text: "No , Cancel please！",
-        //                     value: null,
-        //                     visible: true,
-        //                     className: "",
-        //                     closeModal: false,
-        //                 },
-        //                 confirm: {
-        //                     text: "Yes、Delete！",
-        //                     value: true,
-        //                     visible: true,
-        //                     className: "",
-        //                     closeModal: false
-        //                 }
-        //             }
-        //         })
-        //         .then((isConfirm) => {
-        //             if (isConfirm) {
-        //                 $.ajaxSetup({
-        //                     headers: {
-        //                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //                     }
-        //                 });
-        //                 $.ajax({
-        //                     method: "DELETE",
-        //                     url: '{{ route('dsa.destroy', ['dsa' => ':id']) }}'.replace(':id', id),
-        //                     success: function(result) {
-        //                         console.log(result)
-        //                         if (result.status == "success") {
-        //                             $("#row_" + id).hide();
-        //                             swal("Success！", "Product has been deleted", "success");
-        //                         }
-        //                     }
-        //                 })
+        $(document).ready(function() {
+            $('#link_table').DataTable({
+                "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [0, 2]
+                }],
+                "bProcessing": true,
+                "bServerSide": true,
+                "aaSorting": [
+                    [0, "desc"]
+                ],
+                "sPaginationType": "full_numbers",
+                "aLengthMenu": [
+                    [10, 50, 100, 500],
+                    [10, 50, 100, 500]
+                ],
+                "sAjaxSource": "{{ url('/get_bookings') }}",
+            });
+        });
 
-        //             } else {
-        //                 swal("Error", "You are safe", "error");
-        //             }
-        //         });
+        function deleteBooking(id) {
+            swal({
+                    title: "Are you sure？",
+                    text: "Do you want to delete this Product",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "No , Cancel please！",
+                            value: null,
+                            visible: true,
+                            className: "",
+                            closeModal: false,
+                        },
+                        confirm: {
+                            text: "Yes、Delete！",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: false
+                        }
+                    }
+                })
+                .then((isConfirm) => {
+                    if (isConfirm) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            method: "DELETE",
+                            url: '{{ route('bookings.destroy', ['booking' => ':id']) }}'.replace(':id', id),
+                            success: function(result) {
+                                if (result.status == "success") {
+                                    $("#row_" + id).hide();
+                                    swal("Success！", "Product has been deleted", "success");
+                                }
+                            }
+                        })
 
-        // }
+                    } else {
+                        swal("Error", "You are safe", "error");
+                    }
+                });
+
+        }
     </script>
 @endsection
 @section('content')
@@ -83,7 +83,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="la la-cars"></i>
-                            <h4 class="card-title">Products</h4>
+                            <h4 class="card-title">Bookings</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -101,8 +101,8 @@
                                     id="link_table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th style="width:700px">Product</th>
+                                            <th>User Name</th>
+                                            <th style="width:300px">Product Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>

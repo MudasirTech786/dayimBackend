@@ -6,73 +6,73 @@
     <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
-        // $(document).ready(function() {
-        //     $('#link_table').DataTable({
-        //         "aoColumnDefs": [{
-        //             "bSortable": false,
-        //             "aTargets": [0, 2]
-        //         }],
-        //         "bProcessing": true,
-        //         "bServerSide": true,
-        //         "aaSorting": [
-        //             [0, "desc"]
-        //         ],
-        //         "sPaginationType": "full_numbers",
-        //         "aLengthMenu": [
-        //             [10, 50, 100, 500],
-        //             [10, 50, 100, 500]
-        //         ],
-        //         "sAjaxSource": "{{ url('/get_dsa_Products') }}",
-        //     });
-        // });
+        $(document).ready(function() {
+            $('#link_table').DataTable({
+                "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [0, 2]
+                }],
+                "bProcessing": true,
+                "bServerSide": true,
+                "aaSorting": [
+                    [0, "desc"]
+                ],
+                "sPaginationType": "full_numbers",
+                "aLengthMenu": [
+                    [10, 50, 100, 500],
+                    [10, 50, 100, 500]
+                ],
+                "sAjaxSource": "{{ url('/get_payments') }}",
+            });
+        });
 
-        // function deleteProduct(id) {
-        //     swal({
-        //             title: "Are you sure？",
-        //             text: "Do you want to delete this Product",
-        //             icon: "warning",
-        //             buttons: {
-        //                 cancel: {
-        //                     text: "No , Cancel please！",
-        //                     value: null,
-        //                     visible: true,
-        //                     className: "",
-        //                     closeModal: false,
-        //                 },
-        //                 confirm: {
-        //                     text: "Yes、Delete！",
-        //                     value: true,
-        //                     visible: true,
-        //                     className: "",
-        //                     closeModal: false
-        //                 }
-        //             }
-        //         })
-        //         .then((isConfirm) => {
-        //             if (isConfirm) {
-        //                 $.ajaxSetup({
-        //                     headers: {
-        //                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //                     }
-        //                 });
-        //                 $.ajax({
-        //                     method: "DELETE",
-        //                     url: '{{ route('dsa.destroy', ['dsa' => ':id']) }}'.replace(':id', id),
-        //                     success: function(result) {
-        //                         console.log(result)
-        //                         if (result.status == "success") {
-        //                             $("#row_" + id).hide();
-        //                             swal("Success！", "Product has been deleted", "success");
-        //                         }
-        //                     }
-        //                 })
+        function deleteProduct(id) {
+            swal({
+                    title: "Are you sure？",
+                    text: "Do you want to delete this Product",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "No , Cancel please！",
+                            value: null,
+                            visible: true,
+                            className: "",
+                            closeModal: false,
+                        },
+                        confirm: {
+                            text: "Yes、Delete！",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: false
+                        }
+                    }
+                })
+                .then((isConfirm) => {
+                    if (isConfirm) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            method: "DELETE",
+                            url: '{{ route('dsa.destroy', ['dsa' => ':id']) }}'.replace(':id', id),
+                            success: function(result) {
+                                console.log(result)
+                                if (result.status == "success") {
+                                    $("#row_" + id).hide();
+                                    swal("Success！", "Product has been deleted", "success");
+                                }
+                            }
+                        })
 
-        //             } else {
-        //                 swal("Error", "You are safe", "error");
-        //             }
-        //         });
+                    } else {
+                        swal("Error", "You are safe", "error");
+                    }
+                });
 
-        // }
+        }
     </script>
 @endsection
 @section('content')
@@ -101,8 +101,10 @@
                                     id="link_table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th style="width:700px">Product</th>
+                                            <th>Name</th>
+                                            <th style="width:700px">Pay Head</th>
+                                            <th style="width:700px">Due Date</th>
+                                            <th style="width:700px">Due Amount</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
