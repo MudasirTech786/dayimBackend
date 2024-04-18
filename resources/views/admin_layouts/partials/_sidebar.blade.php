@@ -124,6 +124,13 @@
             </li>
             {{-- @endif --}}
 
+
+            <li class="nav-item"><a href="{{ route('sheet.index') }}"><i class="la la-dropbox"></i><span
+                        class="menu-title" data-i18n="nav.dash.main">Open
+                        Sheet</span></a>
+            </li>
+            {{-- @endif --}}
+
         </ul>
     </div>
 </div>

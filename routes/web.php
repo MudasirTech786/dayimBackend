@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GoogleSheetController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get_payments', [PaymentController::class, 'getPayments'])->name('get_payments');
     Route::get('/add_payment/{id}', [PaymentController::class, 'add_payment']);
     Route::post('payments/{id}', [PaymentController::class, 'store_proof'])->name('payments.store_proof');
+
+    Route::get('/sheet', [GoogleSheetController::class, 'index'])->name('sheet.index');
 
 });
 
