@@ -24,7 +24,7 @@ class GoogleSheetsServices{
         $client->setApplicationName('Dayim Google Sheets');
         $client->setRedirectUri('http://127.0.0.1:8000/googlesheet');
         $client->setScopes(Sheets::SPREADSHEETS);
-        $client->setAuthConfig('credentials.json');
+        $client->setAuthConfig('../storage/credentials.json');
         $client->setAccessType('offline');
         
         return $client;
