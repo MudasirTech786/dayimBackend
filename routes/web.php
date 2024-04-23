@@ -24,10 +24,19 @@ use App\Models\Dayim;
 |
 */
 
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
+
 Route::get('/', function () {
-    // return "ali";
-    return redirect()->route('login');
+    return "testing";
 });
+
+
+// Route::get('/login', function () {
+//     return "ali";
+//     return redirect()->route('login');
+// });
 
 Auth::routes();
 
