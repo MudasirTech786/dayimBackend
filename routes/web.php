@@ -24,13 +24,13 @@ use App\Models\Dayim;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect()->route('login');
-// });
-
 Route::get('/', function () {
-    return "testing";
+    return redirect()->route('login');
 });
+
+// Route::get('/', function () {
+//     return "testing";
+// });
 
 
 // Route::get('/login', function () {
