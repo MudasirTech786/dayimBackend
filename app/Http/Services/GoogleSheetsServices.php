@@ -14,7 +14,9 @@ class GoogleSheetsServices{
     {
         $this->client = $this->getClient();
         $this->service = new Sheets($this->client);
-        $this->documentId = '1KE-vDdEpkMgHJASgBNTrRqvdy6GUUEn9Jd0fpykdLLA';
+        // $this->documentId = '1KE-vDdEpkMgHJASgBNTrRqvdy6GUUEn9Jd0fpykdLLA';
+        $this->documentId = '1xtXvXffYjMclUPdMajXUGNjV1MXLWrv9Ya0cwBMky6g';
+        
         $this->range = 'A:Z';
         
     }

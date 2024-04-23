@@ -25,6 +25,7 @@ use App\Models\Dayim;
 */
 
 Route::get('/', function () {
+    // return "ali";
     return redirect()->route('login');
 });
 
