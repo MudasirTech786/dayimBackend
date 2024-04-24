@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-mudasir-dev',
-        'version' => 'dev-mudasir-dev',
-        'reference' => '1b22953062df987feb06b024b3c6dd85f136813d',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '9733508a1d88c3db8e6b50de923799f9778050b0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -416,9 +416,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-mudasir-dev',
-            'version' => 'dev-mudasir-dev',
-            'reference' => '1b22953062df987feb06b024b3c6dd85f136813d',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '9733508a1d88c3db8e6b50de923799f9778050b0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
