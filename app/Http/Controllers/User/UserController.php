@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserSheet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,41 +27,51 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->    all());
+        // Validation rules
         $rules = [
-            'name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'cnic' => 'required|string|unique:users,cnic',
+            'dob' => 'nullable|date',
+            'gender' => 'nullable|string|max:255',
+            'occupation' => 'nullable|string|max:255',
+            'phone' => 'nullable|numeric',
+            'address' => 'nullable|string|max:255',
+            'active' => 'nullable|boolean',
+            'password' => 'required|string|min:8',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3000', // Validation for image upload
+            'sheet_no' => 'required|string|max:255'
         ];
+
+        // Create a validator
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // $input = $request->all();
-        // $input['password'] = Hash::make($input['password']);
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->cnic = $request->cnic;
-        $user->dob = $request->dob;
-        $user->gender = $request->gender;
-        $user->occupation = $request->occupation;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
-        $user->active = $request->active;
+        // Creating the user
+        $user = new User($request->only('name', 'email', 'cnic', 'dob', 'gender', 'occupation', 'phone', 'address', 'active'));
         $user->password = Hash::make($request->password);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = $image->getClientOriginalName();
+            $imageName = time() . '_' . $image->getClientOriginalName(); // Unique file name
             $image->move(public_path('uploads'), $imageName);
             $user->image = $imageName;
         }
 
         $user->save(); // Save the user first
 
-        // Assuming $request->input('roles') contains an array of role IDs
-        $roles = $request->input('roles');
-        $user->assignRole($roles);
+        // Creating and saving user sheet
+        $userSheet = new UserSheet(['sheet_no' => $request->sheet_no]);
+        $user->sheets()->save($userSheet); // Associate and save user sheet
+
+        // Assign roles, if role assignment is part of the request
+        if ($request->filled('roles')) {
+            $roles = $request->input('roles');
+            $user->assignRole($roles); // Assuming you are using Spatie Permission Package
+        }
 
         return redirect()->route('users.index')->with('success', 'User has been Added successfully!');
     }
@@ -178,17 +189,20 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['roles', 'sheets'])->findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
+        // dd($user);
         return view('admin.user.edit', compact('user'), compact('roles'));
     }
 
     public function update(Request $request, string $id)
     {
 
+        // dd($request->all());
         $rules = [
             'name' => 'required',
-            'cnic' => 'required',
+            'cnic' => 'required|unique:users,cnic,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -206,22 +220,49 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->active = $request->active;
-        if ($request->password != null) {
+
+        if ($request->password) {
             $user->password = Hash::make($request->password);
         }
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = $image->getClientOriginalName();
+            $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('uploads'), $imageName);
             $user->image = $imageName;
         }
-        $user->save(); // Save the user first
-        // Assuming $request->input('roles') contains an array of role IDs
+
+        $user->save();
+
+        // Handle roles update
         $roles = $request->input('roles');
         $user->roles()->detach();
         $user->assignRole($roles);
 
-        return redirect()->route('users.index')->with('success', 'User has been Updated successfully!');
+        // Update user sheets
+        // $user->sheets()->delete(); // Remove all existing sheets first
+        $user->save();
+        // foreach ($request->input('sheet_no', []) as $sheetNo) {
+        //     if (!empty($sheetNo)) {
+        //         $user->sheets()->create(['sheet_no' => $sheetNo]);
+        //     }
+        // }
+        foreach ($request->sheet_no as $key => $sheet_noData) {
+            $sheetId = $request->sheet_ids[$key] ?? null; // Existing cost ID
+            // dd($sheetId);
+            // Find the existing cost or create a new one
+            $cost = UserSheet::findOrNew($sheetId);
+
+            // Update the cost attributes
+            // $cost->item_id = $transport->id;
+            $cost->user_id = $id;
+            $cost->sheet_no = $request->sheet_no[$key];
+            // Save the cost instance
+            $cost->save();
+        }
+
+
+        return redirect()->route('users.index')->with('success', 'User has been updated successfully!');
     }
 
     public function destroy($id)
@@ -311,7 +352,6 @@ class UserController extends Controller
             $destinationPath = public_path('/storage/user_image');
             $image->move($destinationPath, $user_image);
             $user->image = $user_image;
-
         }
 
         $user->save();
@@ -363,6 +403,5 @@ class UserController extends Controller
         } else {
             return false;
         }
-
     }
 }

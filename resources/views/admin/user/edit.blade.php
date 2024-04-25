@@ -96,8 +96,8 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="dob">DOB</label>
                                             <div class="col-md-9">
-                                                <input type="date" value="{{ $user->dob }}" class="form-control border-primary" name="dob"
-                                                    id="dob">
+                                                <input type="date" value="{{ $user->dob }}"
+                                                    class="form-control border-primary" name="dob" id="dob">
                                             </div>
                                         </div>
                                     </div>
@@ -105,17 +105,19 @@
                                         <label class="col-md-3 label-control" for="gender">Gender</label>
                                         <div class="col-md-9">
                                             <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="maleGenderRadio" name="gender" value="M"
+                                                <input type="radio" class="form-check-input" id="maleGenderRadio"
+                                                    name="gender" value="M"
                                                     {{ $user->gender == 'M' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="maleGenderRadio">Male</label>
                                             </div>
                                             <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="femaleGenderRadio" name="gender" value="F"
+                                                <input type="radio" class="form-check-input" id="femaleGenderRadio"
+                                                    name="gender" value="F"
                                                     {{ $user->gender == 'F' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="femaleGenderRadio">Female</label>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row">
@@ -123,16 +125,18 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="occupation">Occupation</label>
                                             <div class="col-md-9">
-                                                <input value="{{ $user->occupation }}" type="text" class="form-control border-primary"
-                                                    placeholder="Designation" name="occupation" id="occupation">
+                                                <input value="{{ $user->occupation }}" type="text"
+                                                    class="form-control border-primary" placeholder="Designation"
+                                                    name="occupation" id="occupation">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="phone">Phone</label>
                                         <div class="col-md-9">
-                                            <input type="number"  value="{{ $user->phone }}" class="form-control border-primary" placeholder="Phone"
-                                                name="phone" id="phone">
+                                            <input type="number" value="{{ $user->phone }}"
+                                                class="form-control border-primary" placeholder="Phone" name="phone"
+                                                id="phone">
                                         </div>
                                     </div>
                                 </div>
@@ -141,16 +145,17 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="address">Address</label>
                                             <div class="col-md-9">
-                                                <input type="address" value="{{ $user->address }}" class="form-control border-primary"
-                                                    placeholder="Address" name="address" id="address">
+                                                <input type="address" value="{{ $user->address }}"
+                                                    class="form-control border-primary" placeholder="Address"
+                                                    name="address" id="address">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="address">Active</label>
                                         <div class="col-md-9">
-                                            <input type="checkbox" class="form-check-input" id="activeUserCheckbox" name="activeUser" value="1"
-                                            {{ $user->active ? 'checked' : '' }}>
+                                            <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
+                                                name="activeUser" value="1" {{ $user->active ? 'checked' : '' }}>
                                         </div>
                                     </div>
                                     {{-- <div class="col-md-6 row">
@@ -175,6 +180,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div id="sheetDiv">
+                                    @foreach ($user->sheets as $sheets)
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Sheet
+                                                        Number</label>
+                                                    <div class="col-md-6">
+                                                        <input type="hidden" name="sheet_ids[]"
+                                                            value="{{ $sheets->id }}">
+                                                        <input type="text" class="form-control border-primary"
+                                                            placeholder="Sheet #" name="sheet_no[]"
+                                                            value="{{ $sheets->sheet_no }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <button type="button" class="btn btn-info" id="addMoreSheets">Add
+                                        More</button>
+                                </div>
                             </div>
                             <div class="form-actions center">
                                 <button type="submit" class="btn btn-primary col-md-3">
@@ -187,4 +214,42 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        // ****************** logic for adding validity again and again
+        var addButtonCounter = 0; // Counter for generating unique add button ids
+
+        $("#addMoreSheets").on("click", function(e) {
+            e.preventDefault();
+            var removeButtonCounter = 0; // Counter for generating unique remove button ids
+            $("#addMoreSheets").hide();
+            var removeButtonId = "removesheet" + removeButtonCounter;
+            let add_sheet =
+                ` <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput1">Sheet
+                                                    Number</label>
+                                                <div class="col-md-6">
+                                                    <input type="hidden" name="sheet_ids[]" value="">
+                                                        <input type="text" class="form-control border-primary"
+                                                            placeholder="Sheet #" name="sheet_no[]"
+                                                            >
+                                                </div>
+                                                <div class="col-md-3">
+                <button id="${removeButtonId}" class="btn btn-danger removeSheet" style="position:absolute; left:0px"> - </button>
+            </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+            // Append the new validity row after the last one
+            $("#sheetDiv:last").after(add_sheet);
+        });
+
+        // Use event delegation to handle the remove button click
+        $(document).on("click", ".removeSheet", function() {
+            $("#addMoreSheets").show();
+            $(this).closest('.row').remove();
+        });
+    </script>
 @endsection
