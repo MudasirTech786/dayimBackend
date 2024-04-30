@@ -1,0 +1,7 @@
+.custom-sheet-link {
+    box-shadow: 1px 1px 1px 1px rgb(235, 227, 227);
+}
+
+.custom-sheet-link:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}

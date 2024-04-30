@@ -10,12 +10,13 @@ class GoogleSheetsServices{
     
     public $client, $service, $documentId, $range;
 
-    public function __construct()
+    public function __construct($id)
     {
+        
         $this->client = $this->getClient();
         $this->service = new Sheets($this->client);
-        // $this->documentId = '1KE-vDdEpkMgHJASgBNTrRqvdy6GUUEn9Jd0fpykdLLA';
-        $this->documentId = '1xtXvXffYjMclUPdMajXUGNjV1MXLWrv9Ya0cwBMky6g';
+        // $this->documentId = '1yXF5kZAX3mZF5X2j490kg6xA9WWpmoL37K0gp72szgo';
+        $this->documentId = $id;
         
         $this->range = 'A:Z';
         

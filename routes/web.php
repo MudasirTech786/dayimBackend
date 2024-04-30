@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('payments/{id}', [PaymentController::class, 'store_proof'])->name('payments.store_proof');
 
     Route::get('/sheet', [GoogleSheetController::class, 'index'])->name('sheet.index');
+    Route::get('/sheet/{id}', [GoogleSheetController::class, 'single'])->name('sheet.single');
 
 });
 

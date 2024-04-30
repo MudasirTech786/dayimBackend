@@ -4,14 +4,14 @@
 @section('style')
 @endsection
 @section('content')
-    {{-- <div class="content-body">
+    <div class="content-body">
         <section id="configuration">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <i class="la la-cars"></i>
-                            <h4 class="card-title">Events</h4>
+                            <h4 class="card-title">Details</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 
                         </div>
@@ -37,17 +37,6 @@
                 </div>
             </div>
         </section>
-    </div> --}}
-    <div class="shadow-lg d-flex text-center justify-center space-x-3">
-        <a href="{{ url('sheet/1DX_yuly45iFdFf5yIjV_jDquxx_5v5zuF1UsqEfCo4M') }}"
-            class="bg-white p-5  text-center mr-3 custom-sheet-link" style="width: 250px">
-            <h3>Inventory 1</h3>
-        </a>
-
-        <a href="{{ url('sheet/1H-bVCkRXNDp9Sdx4mcZcLKK7pyP5SJXH6bpLLNJ1NUo') }}"
-            class="bg-white p-5  text-center mr-3 custom-sheet-link" style="width: 250px">
-            <h3>Inventory 2</h3>
-        </a>
     </div>
 @endsection
 
