@@ -11,20 +11,72 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="la la-cars"></i>
-                            <h4 class="card-title">Details</h4>
+                            <h4 class="card-title">Statement</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
-                                <table class="table table-responsive table-striped">
+                                <table class="table table-responsive table-bordered">
                                     @foreach ($data['values'] as $key => $row)
                                         <tr>
-                                            @if ($key === 0)
-                                                <td colspan="10">{{ $row[0] }}</td>
+                                            @if ($key === 0 || $key === 1)
+                                                {{-- do nothing --}}
+                                            @elseif($key == 2)
+                                                @foreach ($row as $cell)
+                                                    @if ($cell !== '')
+                                                        @if (trim($cell) === 'Active')
+                                                            <td colspan="2" rowspan="2" class="pdfTableHeaderBold"
+                                                                style="">
+                                                                {{ trim($cell) }}
+                                                            </td>
+                                                        @else
+                                                            <td colspan="2" class="pdfTableHeaderBold">
+                                                                {{ trim($cell) }}
+                                                            </td>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            @elseif($key == 3 || $key == 4)
+                                                @foreach ($row as $cell)
+                                                    @if ($cell !== '')
+                                                        <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
+                                                        </td>
+                                                    @endif
+                                                @endforeach
+                                            @elseif($key == 5)
+                                                @foreach ($row as $cell)
+                                                    @if ($cell !== '')
+                                                        <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
+                                                        </td>
+                                                    @endif
+                                                @endforeach
+                                                <td colspan="2" class="pdfTableHeaderBold"></td>
+                                            @elseif($key == 6)
+                                                @foreach ($row as $cell)
+                                                    @if ($cell !== '')
+                                                        @if (trim($cell) === 'Receipt Details')
+                                                            <td colspan="4" class="pdfTableHeaderBold">
+                                                                {{ $cell }}
+                                                            </td>
+                                                        @else
+                                                            <td colspan="2" class="pdfTableHeaderBold">
+                                                                {{ $cell }}
+                                                            </td>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            @elseif($key == 7)
+                                                @foreach ($row as $cell)
+                                                    @if ($cell !== '')
+                                                        <td class="pdfHeader2">
+                                                            {{ $cell }}
+                                                        </td>
+                                                    @endif
+                                                @endforeach
                                             @else
                                                 @foreach (array_pad($row, 10, '') as $cell)
-                                                    <td>{{ $cell }}</td>
+                                                    <td class="pdfDataRows">{{ $cell }}</td>
                                                 @endforeach
                                             @endif
                                         </tr>

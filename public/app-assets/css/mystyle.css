@@ -5,3 +5,22 @@
 .custom-sheet-link:hover {
     box-shadow: 1px 1px 1px 1px gray;
 }
+
+.pdfTableHeaderBold {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+.pdfHeader2 {
+    font-weight: 700;
+    background-color: #379dd5;
+    color: white;
+}
+
+.pdfDataRows {
+    font-size: 12px;
+    padding: 5px !important;
+    text-align: center;
+}
