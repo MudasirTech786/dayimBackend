@@ -195,8 +195,8 @@ class UserController extends Controller
     {
         $user = User::with(['roles', 'sheets'])->findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
-        // dd($user);
-        return view('admin.user.edit', compact('user'), compact('roles'));
+        $currentRole = $user->roles->first()->name ?? null;
+        return view('admin.user.edit', compact('user', 'roles', 'currentRole'));
     }
 
     public function update(Request $request, string $id)

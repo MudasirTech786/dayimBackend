@@ -38,17 +38,27 @@
             </div>
         </section>
     </div> --}}
+    @if ($sheets->isEmpty())
+        <p>No sheets found.</p>
+    @else
+    <?php $i=1; ?>
     <div class="shadow-lg d-flex text-center justify-center space-x-3">
-        <a href="{{ url('sheet/1DX_yuly45iFdFf5yIjV_jDquxx_5v5zuF1UsqEfCo4M') }}"
-            class="bg-white p-5  text-center mr-3 custom-sheet-link" style="width: 250px">
-            <h3>Inventory 1</h3>
+        @foreach ($sheets as $sheet)
+        <a href="{{ url('sheet/' . $sheet->sheet_no) }}"
+        class="bg-white p-5  text-center mr-3 custom-sheet-link" style="width: 250px">
+        <h3>Inventroy # {{$i}}</h3><br>
+            <h5>Sheet Number: <b>{{ $sheet->sheet_no }}</b></h5>
+            <h5>Invenory Name: <b>{{ $sheet->inventory_name  }}</b></h5>
+            <h5>Form Number: <b>{{ $sheet->form_no  }}</b></h5>
         </a>
-
-        <a href="{{ url('sheet/1H-bVCkRXNDp9Sdx4mcZcLKK7pyP5SJXH6bpLLNJ1NUo') }}"
+        <?php $i++; ?>
+        @endforeach
+        {{-- <a href="{{ url('sheet/') }}"
             class="bg-white p-5  text-center mr-3 custom-sheet-link" style="width: 250px">
-            <h3>Inventory 2</h3>
-        </a>
+            <h5>Inventory 2</h5>
+        </a> --}}
     </div>
+    @endif
 @endsection
 
 

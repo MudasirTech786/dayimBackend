@@ -14,7 +14,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <h4 class="card-title">Statement</h4>
                                 <form id=""
-                                    action="{{ route('download.pdf', '1DX_yuly45iFdFf5yIjV_jDquxx_5v5zuF1UsqEfCo4M') }}"
+                                    action="{{ route('download.pdf', $id ) }}"
                                     method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Download</button>

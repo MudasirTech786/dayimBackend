@@ -173,7 +173,10 @@
                                             <div class="col-md-6">
                                                 <select name="roles" class="form-control" style="width: 500px">
                                                     @foreach ($roles as $roleName)
-                                                        <option value="{{ $roleName }}">{{ $roleName }}</option>
+                                                        <option value="{{ $roleName }}"
+                                                            {{ $roleName == $currentRole ? 'selected' : '' }}>
+                                                            {{ $roleName }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -186,29 +189,37 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-md-4 label-control" for="sheet_no_{{ $sheet->id }}">Sheet Number</label>
+                                                    <label class="col-md-4 label-control"
+                                                        for="sheet_no_{{ $sheet->id }}">Sheet Number</label>
                                                     <div class="col-md-8">
-                                                        <input type="hidden" name="sheet_ids[]" value="{{ $sheet->id }}">
-                                                        <input type="text" class="form-control border-primary" id="sheet_no_{{ $sheet->id }}"
-                                                               placeholder="Sheet #" name="sheet_no[]" value="{{ $sheet->sheet_no }}">
+                                                        <input type="hidden" name="sheet_ids[]"
+                                                            value="{{ $sheet->id }}">
+                                                        <input type="text" class="form-control border-primary"
+                                                            id="sheet_no_{{ $sheet->id }}" placeholder="Sheet #"
+                                                            name="sheet_no[]" value="{{ $sheet->sheet_no }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-md-4 label-control" for="inventory_name_{{ $sheet->id }}">Inventory Name</label>
+                                                    <label class="col-md-4 label-control"
+                                                        for="inventory_name_{{ $sheet->id }}">Inventory Name</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control border-primary" id="inventory_name_{{ $sheet->id }}"
-                                                               placeholder="Inventory Name" name="inventory_name[]" value="{{ $sheet->inventory_name }}">
+                                                        <input type="text" class="form-control border-primary"
+                                                            id="inventory_name_{{ $sheet->id }}"
+                                                            placeholder="Inventory Name" name="inventory_name[]"
+                                                            value="{{ $sheet->inventory_name }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-md-4 label-control" for="form_no_{{ $sheet->id }}">Form Number</label>
+                                                    <label class="col-md-4 label-control"
+                                                        for="form_no_{{ $sheet->id }}">Form Number</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control border-primary" id="form_no_{{ $sheet->id }}"
-                                                               placeholder="Form Number" name="form_no[]" value="{{ $sheet->form_no }}">
+                                                        <input type="text" class="form-control border-primary"
+                                                            id="form_no_{{ $sheet->id }}" placeholder="Form Number"
+                                                            name="form_no[]" value="{{ $sheet->form_no }}">
                                                     </div>
                                                 </div>
                                             </div>
