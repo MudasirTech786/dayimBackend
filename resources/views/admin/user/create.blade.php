@@ -144,7 +144,7 @@
                                     </div> --}}
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Sheet No.</label>
                                             <div class="col-md-9">
@@ -152,7 +152,7 @@
                                                     placeholder="Sheet #" name="sheet_no">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Role</label>

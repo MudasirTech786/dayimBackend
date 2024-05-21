@@ -184,11 +184,11 @@
                                 <div id="sheetDiv">
                                     @foreach ($user->sheets as $sheets)
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="userinput1">Sheet
+                                                    <label class="col-md-4 label-control" for="userinput1">Sheet
                                                         Number</label>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-8">
                                                         <input type="hidden" name="sheet_ids[]"
                                                             value="{{ $sheets->id }}">
                                                         <input type="text" class="form-control border-primary"
@@ -197,6 +197,34 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group row">
+                                                    <label class="col-md-4 label-control" for="userinput1">Inventory
+                                                        Name</label>
+                                                    <div class="col-md-8">
+                                                        <input type="hidden" name="sheet_ids[]"
+                                                            value="{{ $sheets->id }}">
+                                                        <input type="text" class="form-control border-primary"
+                                                            placeholder="Sheet #" name="sheet_no[]"
+                                                            value="{{ $sheets->sheet_no }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group row">
+                                                    <label class="col-md-4 label-control" for="userinput1">Form
+                                                        Number</label>
+                                                    <div class="col-md-8">
+                                                        <input type="hidden" name="sheet_ids[]"
+                                                            value="{{ $sheets->id }}">
+                                                        <input type="text" class="form-control border-primary"
+                                                            placeholder="Sheet #" name="sheet_no[]"
+                                                            value="{{ $sheets->sheet_no }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     @endforeach
                                     <button type="button" class="btn btn-info" id="addMoreSheets">Add
