@@ -6,13 +6,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\PermissionTableSeeder;
 use Database\Seeders\UserAndRoleSeeder;
-use Database\Seeders\MealTypesTableSeeder;
-use Database\Seeders\CurrencyConversionTableSeeder;
-use Database\Seeders\VisaSeeder;
-use Database\Seeders\WeekendTableSeeder;
-use Database\Seeders\RouteSeeder;
-use Database\Seeders\TransportTypeSeeder;
-use Database\Seeders\RoomSeeder;
+use Database\Seeders\DM_eventsTableSeeder;
+use Database\Seeders\DSA_eventsTableSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -25,13 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionTableSeeder::class,
             UserAndRoleSeeder::class,
-            MealTypesTableSeeder::class,
-            CurrencyConversionTableSeeder::class,
-            VisaSeeder::class,
-            WeekendTableSeeder::class,
-            RouteSeeder::class,
-            // TransportTypeSeeder::class,
-            RoomSeeder::class,
+            DM_eventsTableSeeder::class,
+            DSA_eventsTableSeeder::class,
         ]);
     }
 }
