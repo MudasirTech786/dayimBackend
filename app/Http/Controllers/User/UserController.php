@@ -83,7 +83,7 @@ class UserController extends Controller
     public function get_users(Request $request)
     {
 
-        $result = User::orderBy('created_at', 'DESC');
+        $result = User::where('name', '!=', 'Admin')->orderBy('created_at', 'DESC');
 
         $aColumns = ['name', 'email', 'id_card', 'phone', 'role'];
 
