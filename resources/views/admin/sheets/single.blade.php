@@ -11,8 +11,17 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="la la-cars"></i>
-                            <h4 class="card-title">Statement</h4>
-                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4 class="card-title">Statement</h4>
+                                <form id=""
+                                    action="{{ route('download.pdf', '1DX_yuly45iFdFf5yIjV_jDquxx_5v5zuF1UsqEfCo4M') }}"
+                                    method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Download</button>
+                                </form>
+                            </div>
+
+                            {{-- <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a> --}}
 
                         </div>
                         <div class="card-content collapse show">
