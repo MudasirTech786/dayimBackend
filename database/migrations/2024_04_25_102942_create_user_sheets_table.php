@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('sheet_no')->nullable();
+            $table->text('inventory_name')->nullable();
+            $table->text('form_no')->nullable();
             $table->timestamps();
         });
     }

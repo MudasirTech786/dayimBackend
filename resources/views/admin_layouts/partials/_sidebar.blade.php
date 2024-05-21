@@ -29,11 +29,12 @@
             @endif
 
 
-
-            <li class="nav-item"><a href="{{ route('sheet.index') }}"><i class="la la-dropbox"></i><span
+            @can('view-statement')
+            <li class="nav-item">
+                <a href="{{ route('sheet.index') }}"><i class="la la-dropbox"></i><span
                         class="menu-title" data-i18n="nav.dash.main">online statement</span></a>
             </li>
-            {{-- @endif --}}
+            @endif
 
         </ul>
     </div>

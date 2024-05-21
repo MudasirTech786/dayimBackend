@@ -27,7 +27,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->    all());
+        // dd($request->all());
         // Validation rules
         $rules = [
             'name' => 'required|string|max:255',
@@ -41,7 +41,7 @@ class UserController extends Controller
             'active' => 'nullable|boolean',
             'password' => 'required|string|min:8',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3000', // Validation for image upload
-            'sheet_no' => 'required|string|max:255'
+            // 'sheet_no' => 'required|string|max:255'
         ];
 
         // Create a validator
@@ -64,7 +64,11 @@ class UserController extends Controller
         $user->save(); // Save the user first
 
         // Creating and saving user sheet
-        $userSheet = new UserSheet(['sheet_no' => $request->sheet_no]);
+        $userSheet = new UserSheet([
+            'sheet_no' => $request->sheet_no,
+            'inventory_name' => $request->inventory_name,
+            'form_no' => $request->form_no
+        ]);
         $user->sheets()->save($userSheet); // Associate and save user sheet
 
         // Assign roles, if role assignment is part of the request
@@ -248,14 +252,14 @@ class UserController extends Controller
         // }
         foreach ($request->sheet_no as $key => $sheet_noData) {
             $sheetId = $request->sheet_ids[$key] ?? null; // Existing cost ID
-            // dd($sheetId);
-            // Find the existing cost or create a new one
             $cost = UserSheet::findOrNew($sheetId);
 
             // Update the cost attributes
             // $cost->item_id = $transport->id;
             $cost->user_id = $id;
             $cost->sheet_no = $request->sheet_no[$key];
+            $cost->inventory_name = $request->inventory_name[$key];
+            $cost->form_no = $request->form_no[$key];
             // Save the cost instance
             $cost->save();
         }

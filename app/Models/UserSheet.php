@@ -10,7 +10,9 @@ class UserSheet extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sheet_no'
+        'sheet_no',
+        'inventory_name',
+        'form_no'
     ];
 
     protected $primaryKey = 'id'; // Set primary key explicitly

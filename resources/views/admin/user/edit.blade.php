@@ -182,53 +182,39 @@
                                 </div>
 
                                 <div id="sheetDiv">
-                                    @foreach ($user->sheets as $sheets)
+                                    @foreach ($user->sheets as $sheet)
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-md-4 label-control" for="userinput1">Sheet
-                                                        Number</label>
+                                                    <label class="col-md-4 label-control" for="sheet_no_{{ $sheet->id }}">Sheet Number</label>
                                                     <div class="col-md-8">
-                                                        <input type="hidden" name="sheet_ids[]"
-                                                            value="{{ $sheets->id }}">
-                                                        <input type="text" class="form-control border-primary"
-                                                            placeholder="Sheet #" name="sheet_no[]"
-                                                            value="{{ $sheets->sheet_no }}">
+                                                        <input type="hidden" name="sheet_ids[]" value="{{ $sheet->id }}">
+                                                        <input type="text" class="form-control border-primary" id="sheet_no_{{ $sheet->id }}"
+                                                               placeholder="Sheet #" name="sheet_no[]" value="{{ $sheet->sheet_no }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-md-4 label-control" for="userinput1">Inventory
-                                                        Name</label>
+                                                    <label class="col-md-4 label-control" for="inventory_name_{{ $sheet->id }}">Inventory Name</label>
                                                     <div class="col-md-8">
-                                                        <input type="hidden" name="sheet_ids[]"
-                                                            value="{{ $sheets->id }}">
-                                                        <input type="text" class="form-control border-primary"
-                                                            placeholder="Sheet #" name="sheet_no[]"
-                                                            value="{{ $sheets->sheet_no }}">
+                                                        <input type="text" class="form-control border-primary" id="inventory_name_{{ $sheet->id }}"
+                                                               placeholder="Inventory Name" name="inventory_name[]" value="{{ $sheet->inventory_name }}">
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-md-4 label-control" for="userinput1">Form
-                                                        Number</label>
+                                                    <label class="col-md-4 label-control" for="form_no_{{ $sheet->id }}">Form Number</label>
                                                     <div class="col-md-8">
-                                                        <input type="hidden" name="sheet_ids[]"
-                                                            value="{{ $sheets->id }}">
-                                                        <input type="text" class="form-control border-primary"
-                                                            placeholder="Sheet #" name="sheet_no[]"
-                                                            value="{{ $sheets->sheet_no }}">
+                                                        <input type="text" class="form-control border-primary" id="form_no_{{ $sheet->id }}"
+                                                               placeholder="Form Number" name="form_no[]" value="{{ $sheet->form_no }}">
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     @endforeach
-                                    <button type="button" class="btn btn-info" id="addMoreSheets">Add
-                                        More</button>
+                                    <button type="button" class="btn btn-info" id="addMoreSheets">Add More</button>
                                 </div>
                             </div>
                             <div class="form-actions center">
@@ -253,22 +239,35 @@
             var removeButtonId = "removesheet" + removeButtonCounter;
             let add_sheet =
                 ` <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="userinput1">Sheet
-                                                    Number</label>
-                                                <div class="col-md-6">
-                                                    <input type="hidden" name="sheet_ids[]" value="">
-                                                        <input type="text" class="form-control border-primary"
-                                                            placeholder="Sheet #" name="sheet_no[]"
-                                                            >
-                                                </div>
-                                                <div class="col-md-3">
-                <button id="${removeButtonId}" class="btn btn-danger removeSheet" style="position:absolute; left:0px"> - </button>
+                    <div class="col-md-3">
+            <div class="form-group row">
+                <label class="col-md-4 label-control">Sheet Number</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="sheet_ids[]" value="">
+                    <input type="text" class="form-control border-primary" placeholder="Sheet #" name="sheet_no[]" required>
+                </div>
             </div>
-                                            </div>
-                                        </div>
-                                    </div>`;
+        </div>
+        <div class="col-md-3">
+            <div class="form-group row">
+                <label class="col-md-4 label-control">Inventory Name</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control border-primary" placeholder="Inventory Name" name="inventory_name[]" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group row">
+                <label class="col-md-4 label-control">Form Number</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control border-primary" placeholder="Form Number" name="form_no[]" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-danger removeSheet" style="position: absolute; left: 0px"> - </button>
+        </div>
+    </div>`;
 
             // Append the new validity row after the last one
             $("#sheetDiv:last").after(add_sheet);

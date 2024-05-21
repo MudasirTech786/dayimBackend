@@ -166,6 +166,39 @@
                                         </div>
                                     </div>
                                 </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label class="col-md-4 label-control" for="userinput1">Sheet
+                                                    Number</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control border-primary"
+                                                        placeholder="Sheet #" name="sheet_no" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label class="col-md-4 label-control" for="userinput1">Inventory
+                                                    Name</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control border-primary"
+                                                        placeholder="Sheet #" name="inventory_name" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label class="col-md-4 label-control" for="userinput1">Form
+                                                    Number</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control border-primary"
+                                                        placeholder="Sheet #" name="form_no" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                             <div class="form-actions center">
                                 <button type="submit" class="btn btn-primary col-md-3">
