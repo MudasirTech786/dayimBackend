@@ -28,6 +28,11 @@
                 </li>
             @endif
 
+            @can('contacts-view')
+                <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-phone"></i><span
+                            class="menu-title" data-i18n="nav.dash.main">View User Contacts</span></a>
+                </li>
+            @endcan
 
             @can('view-statement')
             <li class="nav-item">

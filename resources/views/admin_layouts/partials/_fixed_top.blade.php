@@ -44,14 +44,19 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('change-password') }}">
+                                <i class="ft-lock"></i> Change Password
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="javascript:;"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
-                                    class="ft-power"></i> Logout</a>
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="ft-power"></i> Logout
+                            </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                 @csrf
                             </form>
                         </div>
+                        
                     </li>
                 </ul>
                 </li>

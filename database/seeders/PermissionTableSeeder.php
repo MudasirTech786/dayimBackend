@@ -24,6 +24,7 @@ class PermissionTableSeeder extends Seeder
            'users-edit',
            'users-delete',
            'view-statement',
+           'contacts-view'
         ];
      
         foreach ($permissions as $permission) {

@@ -37,6 +37,7 @@ class UserAndRoleSeeder extends Seeder
             'users-create',
             'users-edit',
             'users-delete',
+            'contacts-view'
         ];
         $role->syncPermissions($permissions);
         // Assign a role to the user

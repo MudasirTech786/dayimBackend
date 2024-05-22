@@ -25,4 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/dsa_events', [DSAController::class, 'dsa_events_api']);
 Route::get('/dm_events', [DayimController::class, 'dm_events_api']);
-Route::post('/contact', [ContactController::class, 'store']);
+Route::post('/contact', [ContactController::class, 'storeApi']);
