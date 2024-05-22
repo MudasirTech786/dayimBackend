@@ -154,6 +154,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+    
 
     'providers' => ServiceProvider::defaultProviders()->merge([
         /*
@@ -170,6 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Spatie\LaravelIgnition\IgnitionServiceProvider::class,
     ])->toArray(),
 
     /*
