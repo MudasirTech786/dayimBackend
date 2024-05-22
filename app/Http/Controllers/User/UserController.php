@@ -429,6 +429,6 @@ class UserController extends Controller
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return redirect()->route('home')->with('status', 'Password changed successfully');
+        return redirect()->route('change-password')->with('status', 'Password changed successfully');
     }
 }
