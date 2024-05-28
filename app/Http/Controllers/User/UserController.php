@@ -31,7 +31,6 @@ class UserController extends Controller
         // Validation rules
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
             'cnic' => 'required|string|unique:users,cnic',
             'dob' => 'nullable|date',
             'gender' => 'nullable|string|max:255',
