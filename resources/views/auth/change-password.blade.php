@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/selectize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/selectize.default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/selectize/selectize.css') }}">
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> --}}
     <script src="https://kit.fontawesome.com/d868f4cf6e.js" crossorigin="anonymous"></script>
 @endsection
 @section('content')
@@ -12,13 +13,23 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-content collpase show">
-                    @if (count($errors) > 0)
+                    @if (session('status'))
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <b><i class="fa fa-check-circle" aria-hidden="true"></i> Success!</b>
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Fast Lines!</b>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Errors!</b>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
                     <div class="card-body">
