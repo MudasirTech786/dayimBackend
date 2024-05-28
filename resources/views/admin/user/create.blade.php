@@ -149,7 +149,7 @@
                                             <label class="col-md-3 label-control" for="userinput1">Sheet No.</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
-                                                    placeholder="Sheet #" name="sheet_no">
+                                                    placeholder="" name="sheet_no">
                                             </div>
                                         </div>
                                     </div> --}}
@@ -172,8 +172,8 @@
                                             <label class="col-md-4 label-control" for="userinput1">Sheet
                                                 Number</label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Sheet #" name="sheet_no" value="">
+                                                <input type="text" class="form-control border-primary" placeholder=""
+                                                    name="sheet_no" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -182,8 +182,8 @@
                                             <label class="col-md-4 label-control" for="userinput1">Inventory
                                                 Name</label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Sheet #" name="inventory_name" value="">
+                                                <input type="text" class="form-control border-primary" placeholder=""
+                                                    name="inventory_name" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -193,8 +193,8 @@
                                             <label class="col-md-4 label-control" for="userinput1">Form
                                                 Number</label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Sheet #" name="form_no" value="">
+                                                <input type="text" class="form-control border-primary" placeholder=""
+                                                    name="form_no" value="">
                                             </div>
                                         </div>
                                     </div>

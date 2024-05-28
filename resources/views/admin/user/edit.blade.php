@@ -195,7 +195,7 @@
                                                         <input type="hidden" name="sheet_ids[]"
                                                             value="{{ $sheet->id }}">
                                                         <input type="text" class="form-control border-primary"
-                                                            id="sheet_no_{{ $sheet->id }}" placeholder="Sheet #"
+                                                            id="sheet_no_{{ $sheet->id }}" placeholder=""
                                                             name="sheet_no[]" value="{{ $sheet->sheet_no }}">
                                                     </div>
                                                 </div>
@@ -255,7 +255,7 @@
                 <label class="col-md-4 label-control">Sheet Number</label>
                 <div class="col-md-8">
                     <input type="hidden" name="sheet_ids[]" value="">
-                    <input type="text" class="form-control border-primary" placeholder="Sheet #" name="sheet_no[]" required>
+                    <input type="text" class="form-control border-primary" placeholder="" name="sheet_no[]" required>
                 </div>
             </div>
         </div>
