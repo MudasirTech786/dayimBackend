@@ -204,7 +204,6 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'cnic' => 'required|unique:users,cnic,' . $id,
-            'email' => 'required|email|unique:users,email,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
