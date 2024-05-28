@@ -23,13 +23,15 @@
         .pdfTableHeaderBold {
             font-weight: bold;
             text-align: center;
-            background-color: #f0f0f0;
+            /* background-color: #f0f0f0; */
+            background-color: white;
         }
 
         .pdfHeader2 {
-            font-weight: bold;
+            font-weight: bolder;
             text-align: left;
-            background-color: #d0d0d0;
+            background-color: #5b9bd4;
+            color: white
         }
 
         .pdfDataRows {
@@ -46,6 +48,20 @@
 <body>
     <div style="">
         <table class="table table-responsive table-bordered">
+            <tr>
+                <td colspan="2" class="pdfTableHeaderBold">
+                    <img src="{{ asset('images/dsa_logo_report.png') }}" height="100" width="100"
+                        style="object-fit: contain" />
+                </td>
+                <td colspan="8" class="pdfTableHeaderBold" style="font-size: 22px; font-weight:900">DAYIM MARKETING
+                    AND DEVELOPERS
+                </td>
+            </tr>
+            <tr>
+                <td class="pdfTableHeaderBold" colspan="10">
+                    <span style="font-size: 20px; font-weight:900">Statement</span>
+                </td>
+            </tr>
             @foreach ($data['values'] as $key => $row)
                 <tr>
                     @if ($key === 0 || $key === 1)
@@ -74,11 +90,17 @@
                     @elseif($key == 5)
                         @foreach ($row as $cell)
                             @if ($cell !== '')
-                                <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
-                                </td>
+                                @if (trim($cell) === 'Product Code')
+                                    <td colspan="4" class="pdfTableHeaderBold">
+                                        {{ $cell }}
+                                    </td>
+                                @else
+                                    <td colspan="2" class="pdfTableHeaderBold">
+                                        {{ $cell }}
+                                    </td>
+                                @endif
                             @endif
                         @endforeach
-                        <td colspan="2" class="pdfTableHeaderBold"></td>
                     @elseif($key == 6)
                         @foreach ($row as $cell)
                             @if ($cell !== '')

@@ -13,9 +13,7 @@
                             <i class="la la-cars"></i>
                             <div class="d-flex align-items-center justify-content-between">
                                 <h4 class="card-title">Statement</h4>
-                                <form id=""
-                                    action="{{ route('download.pdf', $id ) }}"
-                                    method="post">
+                                <form id="" action="{{ route('download.pdf', $id) }}" method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Download</button>
                                 </form>
@@ -46,7 +44,14 @@
                                                         @endif
                                                     @endif
                                                 @endforeach
-                                            @elseif($key == 3 || $key == 4)
+                                            @elseif($key == 3)
+                                                @foreach ($row as $cell)
+                                                    @if ($cell !== '')
+                                                        <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
+                                                        </td>
+                                                    @endif
+                                                @endforeach
+                                            @elseif($key == 4)
                                                 @foreach ($row as $cell)
                                                     @if ($cell !== '')
                                                         <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
@@ -56,11 +61,17 @@
                                             @elseif($key == 5)
                                                 @foreach ($row as $cell)
                                                     @if ($cell !== '')
-                                                        <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
-                                                        </td>
+                                                        @if (trim($cell) === 'Product Code')
+                                                            <td colspan="4" class="pdfTableHeaderBold">
+                                                                {{ $cell }}
+                                                            </td>
+                                                        @else
+                                                            <td colspan="2" class="pdfTableHeaderBold">
+                                                                {{ $cell }}
+                                                            </td>
+                                                        @endif
                                                     @endif
                                                 @endforeach
-                                                <td colspan="2" class="pdfTableHeaderBold"></td>
                                             @elseif($key == 6)
                                                 @foreach ($row as $cell)
                                                     @if ($cell !== '')

@@ -81,7 +81,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Users</h4>
+                            <h4 class="card-title">Users Contact Details</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -92,26 +92,28 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body card-dashboard">
+                        <div class="card-content collapse show ">
+                            <div class="card-body card-dashboard ">
                                 <p class="card-text"></p>
-                                <table class="table table-striped table-bordered zero-configuration data-table"
-                                    id="link_table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th style="width:50px">Email Address</th>
-                                            <th>Contact</th>
-                                            <th>Message</th>
-                                            <th>Floor</th>
-                                            <th>Inv Name</th>
-                                            <th>Inv Number</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                                <div class="overflow-auto">
+                                    <table class="table table-striped table-bordered zero-configuration data-table "
+                                        id="link_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th style="width:50px">Email Address</th>
+                                                <th>Contact</th>
+                                                <th>Message</th>
+                                                <th>Inv Number</th>
+                                                <th>Inv Name</th>
+                                                <th>Floor</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
