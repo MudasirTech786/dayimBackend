@@ -68,8 +68,8 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="email">Email</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary" placeholder="Email"
-                                                name="email" value="{{ $user->email }}" id="email" required>
+                                            <input type="email" class="form-control border-primary" placeholder="Email"
+                                                name="email" value="{{ $user->email }}" id="email">
                                         </div>
                                     </div>
                                 </div>
