@@ -4,63 +4,86 @@
 @section('style')
 @endsection
 @section('content')
-    {{-- <div class="content-body">
-        <section id="configuration">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="la la-cars"></i>
-                            <h4 class="card-title">Events</h4>
-                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-
-                        </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body card-dashboard">
-                                <table class="table table-responsive table-striped">
-                                    @foreach ($data['values'] as $key => $row)
-                                        <tr>
-                                            @if ($key === 0)
-                                                <td colspan="10">{{ $row[0] }}</td>
-                                            @else
-                                                @foreach (array_pad($row, 10, '') as $cell)
-                                                    <td>{{ $cell }}</td>
-                                                @endforeach
-                                            @endif
-                                        </tr>
-                                    @endforeach
-                                </table>
-
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card bg-success ">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="card-title text-white font-medium-3">Welcome To</h2>
+                        <h5 class="text-white font-small-3">Dayim Marketing</h5>
                     </div>
+                    <img src="{{ asset('images/dashboard/icon1.png') }}" style="height: 60px">
                 </div>
             </div>
-        </section>
-    </div> --}}
-    @if ($sheets->isEmpty())
-        <p>No sheets found.</p>
-    @else
-        <?php $i = 1; ?>
-        <div class="shadow-lg d-flex text-center justify-center space-x-3">
-            @foreach ($sheets as $sheet)
-                <a href="{{ url('sheet/' . $sheet->sheet_no) }}" class="bg-white p-5  text-center mr-3 custom-sheet-link"
-                    style="">
-                    {{-- <h3>Inventroy # {{ $i }}</h3><br> --}}
-                    {{-- <h5><b>{{ $sheet->sheet_no }}</b></h5> --}}
-                    <h5><b>{{ $sheet->inventory_name }}</b></h5>
-                    <h5><b>{{ $sheet->form_no }}</b></h5>
-                </a>
-                <?php $i++; ?>
-            @endforeach
-            {{-- <a href="{{ url('sheet/') }}"
-            class="bg-white p-5  text-center mr-3 custom-sheet-link" style="width: 250px">
-            <h5>Inventory 2</h5>
-        </a> --}}
         </div>
-    @endif
+        <div class="col-md-3">
+            <div class="card bg-info ">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="card-title text-white font-medium-3">{{ $totalBookings }}</h2>
+                        <h5 class="text-white font-small-3">Booking</h5>
+                    </div>
+                    <img src="{{ asset('images/dashboard/icon2.png') }}" style="height: 50px">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-danger ">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="card-title text-white font-medium-3">{{ number_format($totalReceived) }}</h2>
+                        <h5 class="text-white font-small-3">received</h5>
+                    </div>
+                    <img src="{{ asset('images/dashboard/icon3.png') }}" style="height: 60px">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-secondary ">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="card-title text-white font-medium-3">{{ number_format($totalBalance) }}</h2>
+                        <h5 class="text-white font-small-3">Pending Balance</h5>
+                    </div>
+                    <img src="{{ asset('images/dashboard/icon4.png') }}" style="height: 50px">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <table id="dataTable" class="display" style="">
+        <thead>
+            <tr>
+                <th>Registration Number</th>
+                <th>Property Code</th>
+                <th>Total Price</th>
+                <th>Paid Amount</th>
+                <th>Outstanding Balance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($sheets as $key => $item)
+                <tr>
+                    <td>{{ $item['registrationNumber'] }}</td>
+                    <td>{{ $item['productCode'] }}</td>
+                    <td>{{ $item['totalPrice'] }}</td>
+                    <td>{{ number_format($item['paidAmount']) }}</td>
+                    <td>{{ number_format($item['outstandingBalance']) }}</td>
+                    <td><a href="{{ url('sheet/' . $key) }}" class="" style="">
+                            View Statement
+                        </a></td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @endsection
 
 
 @section('script')
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
 @endsection
