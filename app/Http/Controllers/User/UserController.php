@@ -31,7 +31,6 @@ class UserController extends Controller
         // Validation rules
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
             'cnic' => 'required|string|unique:users,cnic',
             'dob' => 'nullable|date',
             'gender' => 'nullable|string|max:255',
@@ -85,7 +84,7 @@ class UserController extends Controller
 
         $result = User::where('name', '!=', 'Admin')->orderBy('created_at', 'DESC');
 
-        $aColumns = ['name', 'email', 'id_card', 'phone', 'role'];
+        $aColumns = ['name', 'email', 'cnic', 'phone'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -119,7 +118,7 @@ class UserController extends Controller
             $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhere('name', 'LIKE', "%{$sKeywords}%");;
                 $query->orWhere('email', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('id_card', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('cnic', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('phone', 'LIKE', "%{$sKeywords}%");
             });
         }
@@ -205,7 +204,6 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'cnic' => 'required|unique:users,cnic,' . $id,
-            'email' => 'required|email|unique:users,email,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
