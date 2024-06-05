@@ -75,9 +75,12 @@ class LoginController extends Controller
         $credentials = $request->only('cnic', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed
-            return redirect()->intended('home'); // Redirect to dashboard or any desired route
-        }
+            $user = Auth::user();
+            if ($user->email == 'admin@gmail.com') {
+                return redirect()->intended('/home');
+            } else {
+                return redirect()->intended('/sheet');
+            }        }
 
         // Authentication failed
         return back()->withErrors(['cnic' => 'Invalid CNIC or password'])->withInput($request->only('cnic'));

@@ -28,6 +28,16 @@
                 </li>
             @endif
 
+            @can('users-edit')
+            <li class="nav-item">
+                <a href="{{ route('users.edit', Auth::user()->id) }}">
+                    <i class="la la-user"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">Edit Profile</span>
+                </a>
+                
+            </li>
+            @endif
+
             @can('contacts-view')
                 <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-phone"></i><span
                             class="menu-title" data-i18n="nav.dash.main">View User Contacts</span></a>

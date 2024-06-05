@@ -79,7 +79,7 @@
                                             <label class="col-md-3 label-control" for="cnic">CNIC</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary" placeholder="CNIC"
-                                                    name="cnic" value="{{ $user->cnic }}" required id="cnic">
+                                                    name="cnic" value="{{ $user->cnic }}" required id="cnic" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +171,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Role</label>
                                             <div class="col-md-6">
-                                                <select name="roles" class="form-control" style="width: 500px">
+                                                <select name="roles" class="form-control" style="width: 500px" disabled>
                                                     @foreach ($roles as $roleName)
                                                         <option value="{{ $roleName }}"
                                                             {{ $roleName == $currentRole ? 'selected' : '' }}>
