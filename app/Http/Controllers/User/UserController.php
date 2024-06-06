@@ -169,7 +169,8 @@ class UserController extends Controller
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
                           aria-expanded=\"false\" class=\"btn btn-info btn-sm dropdown-toggle\"><i class=\"la la-cog font-medium-1\"></i></button>
                           <span aria-labelledby=\"btnSearchDrop2\" class=\"dropdown-menu mt-1 dropdown-menu-right\">
-                            <a href=\"#\" onClick=\"deleteUser({$aRow->id})\"  class=\"dropdown-item font-small-3\"><i class=\"la la-repeat font-small-3\"></i> delete</a>
+                          <a href=\"users/{$aRow->id}/edit\" class=\"dropdown-item font-small-3\"><i class=\"la la-barcode font-small-3\"></i> edit</a>  
+                          <a href=\"#\" onClick=\"deleteUser({$aRow->id})\"  class=\"dropdown-item font-small-3\"><i class=\"la la-repeat font-small-3\"></i> delete</a>
                           </span>
                         </span>
                         ";
@@ -191,9 +192,10 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $currentUser = Auth::user();
         $user = User::with(['roles', 'sheets'])->findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
-        $currentRole = $user->roles->first()->name ?? null;
+        $currentRole = $currentUser->roles->first()->name ?? null;
         return view('admin.user.edit', compact('user', 'roles', 'currentRole'));
     }
 

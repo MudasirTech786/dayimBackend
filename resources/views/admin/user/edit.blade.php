@@ -73,24 +73,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="cnic">CNIC</label>
+                                @if ($currentRole == 'Admin')
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="cnic">CNIC</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control border-primary"
+                                                        placeholder="CNIC" name="cnic" value="{{ $user->cnic }}"
+                                                        required id="cnic">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row">
+                                            <label class="col-md-3 label-control" for="userinput1">Change Password</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary" placeholder="CNIC"
-                                                    name="cnic" value="{{ $user->cnic }}" required id="cnic" readonly>
+                                                <input type="password" class="form-control border-primary" value=""
+                                                    name="password">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Change Password</label>
-                                        <div class="col-md-9">
-                                            <input type="password" class="form-control border-primary" value=""
-                                                name="password">
-                                        </div>
-                                    </div>
-                                </div>
+                                @endif
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -166,67 +169,71 @@
                                         </div>
                                     </div> --}}
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Role</label>
-                                            <div class="col-md-6">
-                                                <select name="roles" class="form-control" style="width: 500px" disabled>
-                                                    @foreach ($roles as $roleName)
-                                                        <option value="{{ $roleName }}"
-                                                            {{ $roleName == $currentRole ? 'selected' : '' }}>
-                                                            {{ $roleName }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                @if ($currentRole == 'Admin')
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput1">Role</label>
+                                                <div class="col-md-6">
+                                                    <select name="roles" class="form-control" style="width: 500px">
+                                                        @foreach ($roles as $roleName)
+                                                            <option value="{{ $roleName }}"
+                                                                {{ $roleName == $currentRole ? 'selected' : '' }}>
+                                                                {{ $roleName }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div id="sheetDiv">
-                                    @foreach ($user->sheets as $sheet)
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group row">
-                                                    <label class="col-md-4 label-control"
-                                                        for="sheet_no_{{ $sheet->id }}">Sheet Number</label>
-                                                    <div class="col-md-8">
-                                                        <input type="hidden" name="sheet_ids[]"
-                                                            value="{{ $sheet->id }}">
-                                                        <input type="text" class="form-control border-primary"
-                                                            id="sheet_no_{{ $sheet->id }}" placeholder=""
-                                                            name="sheet_no[]" value="{{ $sheet->sheet_no }}">
+                                    <div id="sheetDiv">
+                                        @foreach ($user->sheets as $sheet)
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 label-control"
+                                                            for="sheet_no_{{ $sheet->id }}">Sheet Number</label>
+                                                        <div class="col-md-8">
+                                                            <input type="hidden" name="sheet_ids[]"
+                                                                value="{{ $sheet->id }}">
+                                                            <input type="text" class="form-control border-primary"
+                                                                id="sheet_no_{{ $sheet->id }}" placeholder=""
+                                                                name="sheet_no[]" value="{{ $sheet->sheet_no }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 label-control"
+                                                            for="inventory_name_{{ $sheet->id }}">Inventory
+                                                            Name</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control border-primary"
+                                                                id="inventory_name_{{ $sheet->id }}"
+                                                                placeholder="Inventory Name" name="inventory_name[]"
+                                                                value="{{ $sheet->inventory_name }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 label-control"
+                                                            for="form_no_{{ $sheet->id }}">Form Number</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control border-primary"
+                                                                id="form_no_{{ $sheet->id }}"
+                                                                placeholder="Form Number" name="form_no[]"
+                                                                value="{{ $sheet->form_no }}">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group row">
-                                                    <label class="col-md-4 label-control"
-                                                        for="inventory_name_{{ $sheet->id }}">Inventory Name</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" class="form-control border-primary"
-                                                            id="inventory_name_{{ $sheet->id }}"
-                                                            placeholder="Inventory Name" name="inventory_name[]"
-                                                            value="{{ $sheet->inventory_name }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group row">
-                                                    <label class="col-md-4 label-control"
-                                                        for="form_no_{{ $sheet->id }}">Form Number</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" class="form-control border-primary"
-                                                            id="form_no_{{ $sheet->id }}" placeholder="Form Number"
-                                                            name="form_no[]" value="{{ $sheet->form_no }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    <button type="button" class="btn btn-info" id="addMoreSheets">Add More</button>
-                                </div>
+                                        @endforeach
+                                        <button type="button" class="btn btn-info" id="addMoreSheets">Add More</button>
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-actions center">
                                 <button type="submit" class="btn btn-primary col-md-3">
