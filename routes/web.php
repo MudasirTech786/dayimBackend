@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/sheet', [GoogleSheetController::class, 'index'])->name('sheet.index');
     Route::get('/sheet/{id}', [GoogleSheetController::class, 'single'])->name('sheet.single');
+    Route::get('/get_sheets', [GoogleSheetController::class, 'get_sheets']);
 
 
     Route::any('/generate-pdf/{id}', [GoogleSheetController::class, 'generatePDF'])->name('download.pdf');
