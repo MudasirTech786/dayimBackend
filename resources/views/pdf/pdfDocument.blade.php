@@ -31,11 +31,13 @@
             font-weight: bolder;
             text-align: left;
             background-color: #5b9bd4;
-            color: white
+            color: white;
+            font-size: 10px;
         }
 
         .pdfDataRows {
             text-align: left;
+            font-size: 10px;
         }
 
         .table-responsive {
@@ -80,18 +82,33 @@
                                 @endif
                             @endif
                         @endforeach
-                    @elseif($key == 3 || $key == 4)
+                    @elseif($key == 3)
                         @foreach ($row as $cell)
                             @if ($cell !== '')
                                 <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
                                 </td>
                             @endif
                         @endforeach
+                    @elseif($key == 4)
+                        {{ $i = 1 }}
+                        @foreach ($row as $cell)
+                            @if ($cell !== '' && $i == 3)
+                                <td colspan="2" rowspan="2" class="pdfTableHeaderBold">
+                                    {{ $cell . ' ' . $i }}
+                                </td>
+                                {{ $i++ }}
+                            @elseif ($cell !== '' && $i != 3)
+                                <td colspan="2" class="pdfTableHeaderBold">
+                                    {{ $cell . ' ' . $i }}
+                                </td>
+                                {{ $i++ }}
+                            @endif
+                        @endforeach
                     @elseif($key == 5)
                         @foreach ($row as $cell)
                             @if ($cell !== '')
                                 @if (trim($cell) === 'Product Code')
-                                    <td colspan="4" class="pdfTableHeaderBold">
+                                    <td colspan="2" class="pdfTableHeaderBold">
                                         {{ $cell }}
                                     </td>
                                 @else
