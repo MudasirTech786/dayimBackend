@@ -94,12 +94,12 @@
                         @foreach ($row as $cell)
                             @if ($cell !== '' && $i == 3)
                                 <td colspan="2" rowspan="2" class="pdfTableHeaderBold">
-                                    {{ $cell . ' ' . $i }}
+                                    {{ $cell }}
                                 </td>
                                 {{ $i++ }}
                             @elseif ($cell !== '' && $i != 3)
                                 <td colspan="2" class="pdfTableHeaderBold">
-                                    {{ $cell . ' ' . $i }}
+                                    {{ $cell }}
                                 </td>
                                 {{ $i++ }}
                             @endif

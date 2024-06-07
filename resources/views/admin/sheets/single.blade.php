@@ -52,18 +52,18 @@
                                                     @endif
                                                 @endforeach
                                             @elseif($key == 4)
-                                                {{ $i = 1 }}
+                                                @php $i = 1; @endphp
                                                 @foreach ($row as $cell)
                                                     @if ($cell !== '' && $i == 3)
                                                         <td colspan="2" rowspan="2" class="pdfTableHeaderBold">
-                                                            {{ $cell . ' ' . $i }}
+                                                            {{ $cell }}
                                                         </td>
-                                                        {{ $i++ }}
+                                                        @php $i++; @endphp
                                                     @elseif ($cell !== '' && $i != 3)
                                                         <td colspan="2" class="pdfTableHeaderBold">
-                                                            {{ $cell . ' ' . $i }}
+                                                            {{ $cell }}
                                                         </td>
-                                                        {{ $i++ }}
+                                                        @php $i++; @endphp
                                                     @endif
                                                 @endforeach
                                             @elseif($key == 5)
