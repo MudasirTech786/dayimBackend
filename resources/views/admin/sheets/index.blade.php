@@ -29,7 +29,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-3">
-            <div class="card bg-success ">
+            <div class="card " style="background-color: #cdcd23;">
                 <div class="card-body d-flex align-items-center justify-content-between">
                     <div>
                         <h2 class="card-title text-white font-medium-3">Welcome To</h2>
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-danger ">
+            <div class="card bg-success ">
                 <div class="card-body d-flex align-items-center justify-content-between">
                     <div>
                         <h2 class="card-title text-white font-medium-3">{{ number_format($totalReceived) }}</h2>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-secondary ">
+            <div class="card bg-danger ">
                 <div class="card-body d-flex align-items-center justify-content-between">
                     <div>
                         <h2 class="card-title text-white font-medium-3">{{ number_format($totalBalance) }}</h2>
