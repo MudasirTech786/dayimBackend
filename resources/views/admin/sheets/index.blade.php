@@ -22,6 +22,7 @@
                     [10, 50, 100, 500]
                 ],
                 "sAjaxSource": "{{ url('get_sheets') }}",
+                "searching": false
             });
         });
     </script>
