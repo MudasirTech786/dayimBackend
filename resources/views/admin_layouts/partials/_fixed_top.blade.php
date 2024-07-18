@@ -11,13 +11,9 @@
                         <h3 class="brand-text">Dayim Marketing</h3>
                     </a>
                 </li>
-                {{-- <li class="nav-item d-none d-md-block float-right"><a class="nav-link modern-nav-toggle pr-0"
-                        data-toggle="collapse"><i class="toggle-icon ft-toggle-right font-medium-3 white"
-                            data-ticon="ft-toggle-right"></i></a></li>
-                <li class="nav-item d-md-none">
-                    <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i
-                            class="la la-ellipsis-v"></i></a>
-                </li> --}}
+                {{-- for showing logout and change password on mobile screen --}}
+
+
             </ul>
         </div>
         <div class="navbar-container content">
@@ -56,7 +52,7 @@
                                 @csrf
                             </form>
                         </div>
-                        
+
                     </li>
                 </ul>
                 </li>

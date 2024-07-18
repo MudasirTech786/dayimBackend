@@ -29,28 +29,43 @@
             @endif
 
             @can('users-edit')
-            <li class="nav-item">
-                <a href="{{ route('users.edit', Auth::user()->id) }}">
-                    <i class="la la-user"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">Edit Profile</span>
-                </a>
-                
-            </li>
-            @endif
+                <li class="nav-item">
+                    <a href="{{ route('users.edit', Auth::user()->id) }}">
+                        <i class="la la-user"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">Edit Profile</span>
+                    </a>
 
-            @can('contacts-view')
-                <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-phone"></i><span
-                            class="menu-title" data-i18n="nav.dash.main">View User Contacts</span></a>
                 </li>
-            @endcan
+                @endif
 
-            @can('view-statement')
-            <li class="nav-item">
-                <a href="{{ route('sheet.index') }}"><i class="la la-dropbox"></i><span
-                        class="menu-title" data-i18n="nav.dash.main">online statement</span></a>
-            </li>
-            @endif
+                @can('contacts-view')
+                    <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-phone"></i><span
+                                class="menu-title" data-i18n="nav.dash.main">View User Contacts</span></a>
+                    </li>
+                @endcan
 
-        </ul>
-    </div>
-</div>
+                @can('view-statement')
+                    <li class="nav-item">
+                        <a href="{{ route('sheet.index') }}"><i class="la la-dropbox"></i><span class="menu-title"
+                                data-i18n="nav.dash.main">online statement</span></a>
+                    </li>
+                    @endif
+
+                    <li class="nav-item d-lg-none">
+                        <a class="" href="{{ route('change-password') }}">
+                            <i class="ft-lock"></i> <span class="menu-title" data-i18n="nav.dash.main">Change Password</span>
+                        </a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="" href="javascript:;"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="ft-power"></i> <span class="menu-title" data-i18n="nav.dash.main">Logout</span>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
