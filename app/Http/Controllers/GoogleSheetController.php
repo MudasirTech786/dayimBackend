@@ -140,7 +140,9 @@ class GoogleSheetController extends Controller
                             <a href=\"sheet/{$aRow->sheet_no}\" class=\"dropdown-item font-small-3\"><i class=\"la la-barcode font-small-3\"></i> View Statement</a>
                           </span>
                         </span>";
-    
+            
+            $paidAmount = number_format($paidAmount);
+            $outstandingBalance = number_format($outstandingBalance);
             $output['aaData'][] = [
                 "DT_RowId" => "row_{$aRow->id}",
                 $registrationNumber,
