@@ -30,10 +30,10 @@ class GoogleSheetController extends Controller
             $totalPrice = $decodedData['values'][4][2];
             $registrationNumber = $decodedData['values'][4][4];
             $productCode = $decodedData['values'][5][7];
-            $paidAmount = (float) str_replace(',', '', $decodedData['values'][39][7]);
+            $paidAmount = (float) str_replace(',', '', $decodedData['values'][44][7]);
             $totalReceived = $totalReceived + $paidAmount;
 
-            $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][39][8]);
+            $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][44][8]);
             $totalBalance = $totalBalance + $outstandingBalance;
 
             $allSheetData[$sheet->sheet_no] = [
@@ -127,10 +127,10 @@ class GoogleSheetController extends Controller
             $totalPrice = $decodedData['values'][4][2];
             $registrationNumber = $decodedData['values'][4][4];
             $productCode = $decodedData['values'][5][7];
-            $paidAmount = (float) str_replace(',', '', $decodedData['values'][39][7]);
+            $paidAmount = (float) str_replace(',', '', $decodedData['values'][44][7]);
             $totalReceived += $paidAmount;
     
-            $outstandingBalance = (float) str_replace(',', '', $decodedData['values'][39][8]);
+            $outstandingBalance = (float) str_replace(',', '', $decodedData['values'][44][8]);
             $totalBalance += $outstandingBalance;
     
             $action = "<span class=\"dropdown\">
@@ -146,8 +146,8 @@ class GoogleSheetController extends Controller
                 $registrationNumber,
                 $productCode,
                 $totalPrice,
-                $paidAmount,
-                $outstandingBalance,
+                number_format($paidAmount),
+                number_format($outstandingBalance),
                 $action,
             ];
         }
