@@ -146,8 +146,8 @@ class GoogleSheetController extends Controller
                 $registrationNumber,
                 $productCode,
                 $totalPrice,
-                number_format($paidAmount),
-                number_format($outstandingBalance),
+                $paidAmount,
+                $outstandingBalance,
                 $action,
             ];
         }
