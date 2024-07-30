@@ -68,12 +68,15 @@ class GoogleSheetController extends Controller
             $totalPrice = $decodedData['values'][4][2];
             $registrationNumber = $decodedData['values'][4][4];
             $productCode = $decodedData['values'][5][7];
-            $paidAmount = (float) str_replace(',', '', $decodedData['values'][44][7]);
+            $paidAmount = (float) str_replace(',', '', $decodedData['values'][59][3]);
+            // $paidAmount =  $decodedData['values'][59][3];
             $totalReceived = $totalReceived + $paidAmount;
 
-            $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][44][8]);
+            $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][59][8]);
+            // $outstandingBalance = $decodedData['values'][59][8];
+            
             $totalBalance = $totalBalance + $outstandingBalance;
-
+            // dd($totalBalance);
             $allSheetData[$sheet->sheet_no] = [
                 'totalPrice' => $totalPrice,
                 'registrationNumber' => $registrationNumber,
