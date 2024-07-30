@@ -31,7 +31,9 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Spatie\\LaravelIgnition\\": "vendor/spatie/laravel-ignition/src/",
+            "Spatie\\": "vendor/spatie/"
         }
     },
     "autoload-dev": {

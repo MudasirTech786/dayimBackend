@@ -66,8 +66,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get_contacts', [ContactController::class, 'get_contacts']);
 
     Route::get('/sheet', [GoogleSheetController::class, 'index'])->name('sheet.index');
+    Route::get('/sheets/{id}', [GoogleSheetController::class, 'user_sheets'])->name('sheet.user_sheets');
     Route::get('/sheet/{id}', [GoogleSheetController::class, 'single'])->name('sheet.single');
-    Route::get('/get_sheets', [GoogleSheetController::class, 'get_sheets']);
+    Route::get('/get_sheets/{id}', [GoogleSheetController::class, 'get_sheets']);
 
 
     Route::any('/generate-pdf/{id}', [GoogleSheetController::class, 'generatePDF'])->name('download.pdf');
