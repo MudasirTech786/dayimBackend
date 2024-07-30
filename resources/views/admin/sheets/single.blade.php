@@ -26,90 +26,100 @@
                             <div class="card-body card-dashboard">
                                 <table class="table table-responsive table-bordered">
                                     @foreach ($data['values'] as $key => $row)
-                                        <tr>
-                                            @if ($key === 0 || $key === 1)
-                                                {{-- do nothing --}}
-                                            @elseif($key == 2)
-                                                @foreach ($row as $cell)
-                                                    @if ($cell !== '')
-                                                        @if (trim($cell) === 'Active')
-                                                            <td colspan="2" rowspan="2" class="pdfTableHeaderBold"
-                                                                style="">
-                                                                {{ trim($cell) }}
-                                                            </td>
-                                                        @else
-                                                            <td colspan="2" class="pdfTableHeaderBold">
-                                                                {{ trim($cell) }}
-                                                            </td>
+                                        @php
+                                            // Check if all cells in the row are empty
+                                            $allCellsEmpty = true;
+                                            foreach ($row as $cell) {
+                                                if (trim($cell) !== '') {
+                                                    $allCellsEmpty = false;
+                                                    break;
+                                                }
+                                            }
+                                        @endphp
+
+                                        @if (!$allCellsEmpty)
+                                            <tr>
+                                                @if ($key === 0 || $key === 1)
+                                                    {{-- do nothing --}}
+                                                @elseif($key == 2)
+                                                    @foreach ($row as $cell)
+                                                        @if ($cell !== '')
+                                                            @if (trim($cell) === 'Active')
+                                                                <td colspan="2" rowspan="2" class="pdfTableHeaderBold"
+                                                                    style="">
+                                                                    {{ trim($cell) }}
+                                                                </td>
+                                                            @else
+                                                                <td colspan="2" class="pdfTableHeaderBold">
+                                                                    {{ trim($cell) }}
+                                                                </td>
+                                                            @endif
                                                         @endif
-                                                    @endif
-                                                @endforeach
-                                            @elseif($key == 3)
-                                                @foreach ($row as $cell)
-                                                    @if ($cell !== '')
-                                                        <td colspan="2" class="pdfTableHeaderBold">{{ $cell }}
-                                                        </td>
-                                                    @endif
-                                                @endforeach
-                                            @elseif($key == 4)
-                                                @php $i = 1; @endphp
-                                                @foreach ($row as $cell)
-                                                    @if ($cell !== '' && $i == 3)
-                                                        <td colspan="2" rowspan="2" class="pdfTableHeaderBold">
-                                                            {{ $cell }}
-                                                        </td>
-                                                        @php $i++; @endphp
-                                                    @elseif ($cell !== '' && $i != 3)
-                                                        <td colspan="2" class="pdfTableHeaderBold">
-                                                            {{ $cell }}
-                                                        </td>
-                                                        @php $i++; @endphp
-                                                    @endif
-                                                @endforeach
-                                            @elseif($key == 5)
-                                                @foreach ($row as $cell)
-                                                    @if ($cell !== '')
-                                                        @if (trim($cell) === 'Product Code')
+                                                    @endforeach
+                                                @elseif($key == 3)
+                                                    @foreach ($row as $cell)
+                                                        @if ($cell !== '')
                                                             <td colspan="2" class="pdfTableHeaderBold">
-                                                                {{ $cell }}
-                                                            </td>
-                                                        @else
-                                                            <td colspan="2" class="pdfTableHeaderBold">
-                                                                {{ $cell }}
-                                                            </td>
+                                                                {{ $cell }}</td>
                                                         @endif
-                                                    @endif
-                                                @endforeach
-                                            @elseif($key == 6)
-                                                @foreach ($row as $cell)
-                                                    @if ($cell !== '')
-                                                        @if (trim($cell) === 'Receipt Details')
-                                                            <td colspan="4" class="pdfTableHeaderBold">
+                                                    @endforeach
+                                                @elseif($key == 4)
+                                                    @php $i = 1; @endphp
+                                                    @foreach ($row as $cell)
+                                                        @if ($cell !== '' && $i == 3)
+                                                            <td colspan="2" rowspan="2" class="pdfTableHeaderBold">
                                                                 {{ $cell }}
                                                             </td>
-                                                        @else
+                                                            @php $i++; @endphp
+                                                        @elseif ($cell !== '' && $i != 3)
                                                             <td colspan="2" class="pdfTableHeaderBold">
                                                                 {{ $cell }}
                                                             </td>
+                                                            @php $i++; @endphp
                                                         @endif
-                                                    @endif
-                                                @endforeach
-                                            @elseif($key == 7)
-                                                @foreach ($row as $cell)
-                                                    @if ($cell !== '')
-                                                        <td class="pdfHeader2">
-                                                            {{ $cell }}
-                                                        </td>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                @foreach (array_pad($row, 10, '') as $cell)
-                                                    <td class="pdfDataRows">{{ $cell }}</td>
-                                                @endforeach
-                                            @endif
-                                        </tr>
+                                                    @endforeach
+                                                @elseif($key == 5)
+                                                    @foreach ($row as $cell)
+                                                        @if ($cell !== '')
+                                                            @if (trim($cell) === 'Product Code')
+                                                                <td colspan="2" class="pdfTableHeaderBold">
+                                                                    {{ $cell }}</td>
+                                                            @else
+                                                                <td colspan="2" class="pdfTableHeaderBold">
+                                                                    {{ $cell }}</td>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                @elseif($key == 6)
+                                                    @foreach ($row as $cell)
+                                                        @if ($cell !== '')
+                                                            @if (trim($cell) === 'Receipt Details')
+                                                                <td colspan="4" class="pdfTableHeaderBold">
+                                                                    {{ $cell }}</td>
+                                                            @else
+                                                                <td colspan="2" class="pdfTableHeaderBold">
+                                                                    {{ $cell }}</td>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                @elseif($key == 7)
+                                                    @foreach ($row as $cell)
+                                                        @if ($cell !== '')
+                                                            <td class="pdfHeader2">{{ $cell }}</td>
+                                                        @endif
+                                                    @endforeach
+                                                @elseif($key >= 50)
+                                                    {{-- this is for removing the empty lines between 50 onwards --}}
+                                                @else
+                                                    @foreach (array_pad($row, 10, '') as $cell)
+                                                        <td class="pdfDataRows">{{ $cell }}</td>
+                                                    @endforeach
+                                                @endif
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </table>
+
 
                             </div>
                         </div>
