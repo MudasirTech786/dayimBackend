@@ -35,7 +35,6 @@ class ProductsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'sold' => 'required|string',
-            'purchased_by' => 'required|string',
             'size' => 'required|string',
             'floor' => 'required|string',
             'number' => 'required|numeric',
@@ -95,7 +94,6 @@ class ProductsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'sold' => 'required|string',
-            'purchased_by' => 'required|string',
             'size' => 'required|string',
             'floor' => 'required|string',
             'number' => 'required|numeric',
