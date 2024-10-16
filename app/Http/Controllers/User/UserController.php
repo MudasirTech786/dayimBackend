@@ -79,6 +79,61 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User has been Added successfully!');
     }
 
+    public function storeUserApi(Request $request)
+    {
+        // Validation rules for API
+        $rules = [
+            'name' => 'nullable|string|max:255',
+            'cnic' => 'required|string|unique:users,cnic',
+            'dob' => 'nullable|date',
+            'gender' => 'nullable|string|max:255',
+            'occupation' => 'nullable|string|max:255',
+            'phone' => 'nullable|numeric',
+            'address' => 'nullable|string|max:255',
+            'active' => 'nullable|boolean',
+            'password' => 'required|string|min:8',
+            'sheet_no' => 'nullable|string|max:255',
+            'inventory_name' => 'nullable|string|max:255',
+            'form_no' => 'nullable|string|max:255',
+        ];
+
+        // Create a validator
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // Creating the user
+        $user = new User($request->only('name', 'email', 'cnic', 'dob', 'gender', 'occupation', 'phone', 'address', 'active'));
+        $user->password = Hash::make($request->password);
+        $user->save(); // Save the user
+
+        // Creating and saving user sheet
+        $userSheet = new UserSheet([
+            'sheet_no' => $request->sheet_no,
+            'inventory_name' => $request->inventory_name,
+            'form_no' => $request->form_no
+        ]);
+        $user->sheets()->save($userSheet); // Associate and save user sheet
+
+        // Assign roles, if role assignment is part of the request
+        if ($request->filled('roles')) {
+            $roles = $request->input('roles');
+            $user->assignRole($roles); // Assuming you are using Spatie Permission Package
+        }
+
+        // Return success response
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User has been added successfully!',
+            'user' => $user
+        ], 201);
+    }
+
+
     public function get_users(Request $request)
     {
 
@@ -222,7 +277,7 @@ class UserController extends Controller
         $user->occupation = $request->occupation;
         $user->phone = $request->phone;
         $user->address = $request->address;
-        $user->active = $request->active;
+        $user->active = $request->activeUser;
 
         if ($request->password) {
             $user->password = Hash::make($request->password);
@@ -252,7 +307,7 @@ class UserController extends Controller
         // }
         foreach ($request->sheet_no as $key => $sheet_noData) {
             $sheetId = $request->sheet_ids[$key] ?? null; // Existing cost ID
-            
+
             $cost = UserSheet::findOrNew($sheetId);
 
             // Update the cost attributes

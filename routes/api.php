@@ -7,6 +7,7 @@ use App\Http\Controllers\DSAController;
 use App\Http\Controllers\DayimController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\User\UserController;
 
 
 
@@ -31,3 +32,5 @@ Route::get('/dm_events', [DayimController::class, 'dm_events_api']);
 Route::post('/contact', [ContactController::class, 'storeApi']);
 
 Route::get('/products', [ProductsController::class, 'apiIndex']);
+
+Route::post('/users', [UserController::class, 'storeUserApi'])->name('api.users.store');

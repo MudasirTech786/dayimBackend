@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -69,18 +69,27 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'cnic' => 'required|string', // Add any additional validation rules here
+            'cnic' => 'required|string',
             'password' => 'required|string',
         ]);
 
         $credentials = $request->only('cnic', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            if ($user->hasRole('Admin')) {
-                return redirect()->intended('/home');
-            } else {
-                return redirect()->intended('/sheet');
+        // Check if the user exists and is active
+        $user = User::where('cnic', $request->cnic)->first();
+
+        if ($user) {
+            if ($user->active == 0) {
+                return back()->withErrors(['cnic' => 'Your account is not activated. Please contact the administrator.'])->withInput($request->only('cnic'));
+            }
+
+            // Attempt to authenticate the user
+            if (Auth::attempt($credentials)) {
+                if ($user->hasRole('Admin')) {
+                    return redirect()->intended('/home');
+                } else {
+                    return redirect()->intended('/sheet');
+                }
             }
         }
 
