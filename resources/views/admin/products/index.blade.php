@@ -93,6 +93,13 @@
                                     <li><a data-action="close"><i class="ft-x"></i></a></li>
                                 </ul>
                             </div>
+                            {{-- <div class="heading-elements">
+                                <div class="pull-right">
+                                    @can('roles-create')
+                                        <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
+                                    @endcan
+                                </div>
+                            </div> --}}
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
@@ -101,8 +108,8 @@
                                     id="link_table">
                                     <thead>
                                         <tr>
-                                            <th style="width:700px">Name</th>
-                                            <th style="width:700px">Code</th>
+                                            <th style="width:700px">Purchased By</th>
+                                            <th style="width:700px">Type</th>
                                             <th style="width:700px">Floor</th>
                                             <th>Action</th>
                                         </tr>

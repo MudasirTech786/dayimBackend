@@ -93,6 +93,13 @@
                                     <li><a data-action="close"><i class="ft-x"></i></a></li>
                                 </ul>
                             </div>
+                            <div class="heading-elements">
+                                <div class="pull-right">
+                                    @can('roles-create')
+                                        <a class="btn btn-success" href="{{ route('dsa.create') }}"> Create New Event</a>
+                                    @endcan
+                                </div>
+                            </div>
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">

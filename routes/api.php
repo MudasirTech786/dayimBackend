@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DSAController;
 use App\Http\Controllers\DayimController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductsController;
+
 
 
 /*
@@ -25,4 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/dsa_events', [DSAController::class, 'dsa_events_api']);
 Route::get('/dm_events', [DayimController::class, 'dm_events_api']);
+
 Route::post('/contact', [ContactController::class, 'storeApi']);
+
+Route::get('/products', [ProductsController::class, 'apiIndex']);

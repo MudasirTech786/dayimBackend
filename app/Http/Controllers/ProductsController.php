@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ProductsController extends Controller
 {
@@ -14,14 +16,15 @@ class ProductsController extends Controller
         return view('admin.products.index');
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('admin.products.create');
+        $users = User::all(); // Fetch all users from the database
+        return view('admin.products.create', compact('users'));
     }
 
     /**
@@ -31,28 +34,26 @@ class ProductsController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'form_number' => 'required|string',
-            'floor' => 'required|string',
-            'code' => 'required|string',
-            'category' => 'required|string',
-            'sales_value' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming image is uploaded
-            'type' => 'required|string',
-            'number' => 'required|string',
+            'sold' => 'required|string',
+            'purchased_by' => 'required|string',
             'size' => 'required|string',
+            'floor' => 'required|string',
+            'number' => 'required|numeric',
+            'type' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming image is uploaded
         ]);
 
         // Create new Product instance
         $product = new Product();
         $product->name = $request->input('name');
-        $product->form_number = $request->input('form_number');
-        $product->floor = $request->input('floor');
-        $product->code = $request->input('code');
-        $product->category = $request->input('category');
-        $product->sales_value = $request->input('sales_value');
-        $product->type = $request->input('type');
-        $product->number = $request->input('number');
+        $product->dealer = $request->input('dealer');
+        $product->sold = $request->input('sold');
+        $product->purchased_by = $request->input('purchased_by');
+        $product->title = $request->input('title');
         $product->size = $request->input('size');
+        $product->floor = $request->input('floor');
+        $product->number = $request->input('number');
+        $product->type = $request->input('type');
 
         // Handle image upload (if provided)
         if ($request->hasFile('image')) {
@@ -60,7 +61,6 @@ class ProductsController extends Controller
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('uploads'), $imageName);
             $product->image = $imageName;
-            
         }
 
         // Save the product
@@ -83,7 +83,8 @@ class ProductsController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.products.edit', compact('product'));
+        $users = User::all();
+        return view('admin.products.edit', compact('product', 'users'));
     }
 
     /**
@@ -93,28 +94,26 @@ class ProductsController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'form_number' => 'required|string',
-            'floor' => 'required|string',
-            'code' => 'required|string',
-            'category' => 'required|string',
-            'sales_value' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming image is uploaded
-            'type' => 'required|string',
-            'number' => 'required|string',
+            'sold' => 'required|string',
+            'purchased_by' => 'required|string',
             'size' => 'required|string',
+            'floor' => 'required|string',
+            'number' => 'required|numeric',
+            'type' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming image is uploaded
         ]);
 
         // Create new Product instance
         $product = Product::findOrFail($id);
         $product->name = $request->input('name');
-        $product->form_number = $request->input('form_number');
-        $product->floor = $request->input('floor');
-        $product->code = $request->input('code');
-        $product->category = $request->input('category');
-        $product->sales_value = $request->input('sales_value');
-        $product->type = $request->input('type');
-        $product->number = $request->input('number');
+        $product->dealer = $request->input('dealer');
+        $product->sold = $request->input('sold');
+        $product->purchased_by = $request->input('purchased_by');
+        $product->title = $request->input('title');
         $product->size = $request->input('size');
+        $product->floor = $request->input('floor');
+        $product->number = $request->input('number');
+        $product->type = $request->input('type');
 
         // Handle image upload (if provided)
         if ($request->hasFile('image')) {
@@ -122,7 +121,6 @@ class ProductsController extends Controller
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('uploads'), $imageName);
             $product->image = $imageName;
-            
         }
 
         // Save the product
@@ -137,7 +135,7 @@ class ProductsController extends Controller
 
         $result = Product::orderBy('created_at', 'DESC');
 
-        $aColumns = ['name', 'code', 'floor'];
+        $aColumns = ['purchased_by', 'type', 'floor'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -169,8 +167,8 @@ class ProductsController extends Controller
         if ($sKeywords != "") {
 
             $result->Where(function ($query) use ($sKeywords) {
-                $query->orWhere('name', 'LIKE', "%{$sKeywords}%");;
-                $query->orWhere('code', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('purchased_by', 'LIKE', "%{$sKeywords}%");;
+                $query->orWhere('type', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('floor', 'LIKE', "%{$sKeywords}%");
             });
         }
@@ -209,8 +207,8 @@ class ProductsController extends Controller
                           </label>";
 
             $hotel_id = $aRow->id;
-            $name = $aRow->name;
-            $code = $aRow->code;
+            $name = $aRow->purchased_by;
+            $code = $aRow->type;
             $floor = $aRow->floor;
             $address = $aRow->address;
 
@@ -238,19 +236,42 @@ class ProductsController extends Controller
     }
 
 
+    public function apiIndex()
+    {
+        // Retrieve all products
+        $products = Product::all();
+
+        // Return a JSON response
+        return response()->json($products, 200); // HTTP 200 OK
+    }
+
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $Product = Product::findOrFail($id);
-        $Product->delete();
+        // Find the product by ID
+        $product = Product::findOrFail($id);
 
+        // Check if the product has an associated image
+        if ($product->image) {
+            // Define the path to the image
+            $imagePath = public_path('uploads/' . $product->image);
+
+            // Check if the file exists and delete it
+            if (file_exists($imagePath)) {
+                unlink($imagePath); // Delete the image file
+            }
+        }
+
+        // Delete the product
+        $product->delete();
+
+        // Return a JSON response
         return response()->json([
             'status' => 'success',
             'message' => 'Product deleted successfully.',
         ], 200);
-
-        return view('admin.products.index');
     }
 }

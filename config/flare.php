@@ -55,8 +55,8 @@ return [
         AddJobs::class => [
             'max_chained_job_reporting_depth' => 5,
         ],
-        AddContext::class,
-        AddExceptionHandledStatus::class,
+        // AddContext::class,
+        // AddExceptionHandledStatus::class,
         CensorRequestBodyFields::class => [
             'censor_fields' => [
                 'password',

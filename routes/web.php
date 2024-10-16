@@ -40,26 +40,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('change-password', [UserController::class, 'showChangePasswordForm'])->name('change-password');
     Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password.update');
 
+    Route::resource('products', ProductsController::class);
+    Route::get('/products', [ProductsController::class, 'index'])->name('products.index')->middleware('check.permission:users-list');
+    Route::get('/get_products', [ProductsController::class, 'get_products']);
+    
+    Route::resource('dsa', DSAController::class);
+    Route::get('/get_dsa_events', [DSAController::class, 'get_dsa_events']);
+
+    Route::resource('dayim', DayimController::class);
+    Route::get('/get_dayim_events', [DayimController::class, 'get_dayim_events']);
+
     Route::resource('roles', RoleController::class);
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index')->middleware('check.permission:roles-list');
-
-    // Route::resource('dayim', DayimController::class);
-    // Route::get('/get_dayim_events', [DayimController::class, 'get_dayim_events']);
-
-    // Route::resource('dsa', DSAController::class);
-    // Route::get('/get_dsa_events', [DSAController::class, 'get_dsa_events']);
-
-    // Route::resource('products', ProductsController::class);
-    // Route::get('get_products', [ProductsController::class, 'get_products']);
-
-    // Route::resource('bookings', BookingController::class);
-    // Route::get('get_bookings', [BookingController::class, 'get_bookings']);
-    // Route::get('/sales/{id}', [BookingController::class, 'show_sale']);
-
-    // Route::resource('payments', PaymentController::class);
-    // Route::get('/get_payments', [PaymentController::class, 'getPayments'])->name('get_payments');
-    // Route::get('/add_payment/{id}', [PaymentController::class, 'add_payment']);
-    // Route::post('payments/{id}', [PaymentController::class, 'store_proof'])->name('payments.store_proof');
 
     Route::resource('contacts', ContactController::class);
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index')->middleware('check.permission:contacts-view');

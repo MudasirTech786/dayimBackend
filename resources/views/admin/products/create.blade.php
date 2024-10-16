@@ -26,49 +26,49 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="name">Name</label>
+                                            <label class="col-md-3 label-control" for="name">Product Name</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary" placeholder="Name"
-                                                    name="name" id="name">
+                                                <select class="form-control border-primary" name="name" id="name">
+                                                    <option value="">Select Option</option>
+                                                    <option value="DSA">DSA</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="code">Code</label>
+                                        <label class="col-md-3 label-control" for="dealer">Dealer Name</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary" placeholder="Code"
-                                                name="code" id="code" required>
-
+                                            <select class="form-control border-primary" name="dealer" id="dealer">
+                                                <option value="">Select Dealer</option>
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="form_number">Form Number</label>
+                                            <label class="col-md-3 label-control" for="sold">Sold</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Form Number" name="form_number" id="form_number">
+                                                <select class="form-control border-primary" name="sold" id="sold">
+                                                    <option value="">Select Option</option>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                    <option value="Reserved">Reserved</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="floor">Floor</label>
+                                        <label class="col-md-3 label-control" for="purchased_by">Purchased By</label>
                                         <div class="col-md-9">
-                                            {{-- <input type="text" class="form-control border-primary" placeholder="Email"
-                                                name="email" id="email" required> --}}
-                                            <select class="form-control border-primary" name="floor" id="floor"
-                                                required>
-                                                <option value="">Select Floor</option>
-                                                <option value="lower_ground">Lower Ground</option>
-                                                <option value="ground">Ground</option>
-                                                <option value="1st">1st</option>
-                                                <option value="2nd">2nd</option>
-                                                <option value="3rd">3rd</option>
-                                                <option value="4th">4th</option>
-                                                <option value="5th">5th</option>
-                                                <option value="6th">6th</option>
+                                            <select class="form-control border-primary" name="purchased_by" id="purchased_by">
+                                                <option value="">Select User</option>
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -77,23 +77,47 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="category">Category</label>
+                                            <label class="col-md-3 label-control" for="title">Title</label>
                                             <div class="col-md-9">
-                                                <select class="form-control border-primary" name="category" id="category"
+                                                <input type="text" class="form-control border-primary"
+                                                    placeholder="Title" name="title" id="title">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="size">Size</label>
+                                        <div class="col-md-9">
+                                            <input type="size" class="form-control border-primary" placeholder="Size"
+                                                name="size" id="size">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="floor">Floor</label>
+                                            <div class="col-md-9">
+                                                <select class="form-control border-primary" name="floor" id="floor"
                                                     required>
-                                                    <option value="">Select Category</option>
-                                                    <option value="shop">Shop</option>
-                                                    <option value="apartment_deluxe">Apartment - Deluxe</option>
-                                                    <option value="apartment_executive">Apartment - Executive</option>
+                                                    <option value="">Select Floor</option>
+                                                    <option value="Lower Ground">Lower Ground</option>
+                                                    <option value="Ground">Ground</option>
+                                                    <option value="1st">1st</option>
+                                                    <option value="2nd">2nd</option>
+                                                    <option value="3rd">3rd</option>
+                                                    <option value="4th">4th</option>
+                                                    <option value="5th">5th</option>
+                                                    <option value="6th">6th</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="sales_value">Sales Value</label>
+                                        <label class="col-md-3 label-control" for="sales_value">Number</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Sales Value" name="sales_value" id="sales_value">
+                                            <input type="number" class="form-control border-primary" placeholder="Number"
+                                                name="number" id="number">
                                         </div>
                                     </div>
                                 </div>
@@ -103,27 +127,13 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="type">Type</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary" placeholder="Type"
-                                                    name="type" id="type">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="number">No #</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary" placeholder="No #"
-                                                name="number" id="number" required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="size">Size</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Size" name="size" id="size">
+                                                <select class="form-control border-primary" name="type" id="type"
+                                                    required>
+                                                    <option value="">Select Category</option>
+                                                    <option value="Shop">Shop</option>
+                                                    <option value="Office">Office</option>
+                                                    <option value="Apartment">Apartment</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
