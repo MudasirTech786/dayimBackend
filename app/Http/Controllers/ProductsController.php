@@ -133,7 +133,7 @@ class ProductsController extends Controller
 
         $result = Product::orderBy('created_at', 'DESC');
 
-        $aColumns = ['purchased_by', 'type', 'floor'];
+        $aColumns = ['floor' , 'type' , 'number' , 'sold'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -165,9 +165,10 @@ class ProductsController extends Controller
         if ($sKeywords != "") {
 
             $result->Where(function ($query) use ($sKeywords) {
-                $query->orWhere('purchased_by', 'LIKE', "%{$sKeywords}%");;
-                $query->orWhere('type', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('floor', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('type', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('number', 'LIKE', "%{$sKeywords}%");;
+                $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");;
             });
         }
 
@@ -205,10 +206,10 @@ class ProductsController extends Controller
                           </label>";
 
             $hotel_id = $aRow->id;
-            $name = $aRow->purchased_by;
-            $code = $aRow->type;
             $floor = $aRow->floor;
-            $address = $aRow->address;
+            $type = $aRow->type;
+            $number = $aRow->number;
+            $sold = $aRow->sold;
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -222,9 +223,10 @@ class ProductsController extends Controller
 
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
-                @$name,
-                @$code,
                 @$floor,
+                @$type,
+                @$number,
+                @$sold,
                 @$action,
             );
 

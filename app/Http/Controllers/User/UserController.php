@@ -15,7 +15,6 @@ class UserController extends Controller
 {
     public function index()
     {
-
         return view('admin.user.view');
     }
 
@@ -250,9 +249,10 @@ class UserController extends Controller
     {
         $currentUser = Auth::user();
         $user = User::with(['roles', 'sheets'])->findOrFail($id);
+        $users = User::all();
         $roles = Role::pluck('name', 'name')->all();
         $currentRole = $currentUser->roles->first()->name ?? null;
-        return view('admin.user.edit', compact('user', 'roles', 'currentRole'));
+        return view('admin.user.edit', compact('user', 'users', 'roles', 'currentRole'));
     }
 
     public function update(Request $request, string $id)
@@ -305,6 +305,7 @@ class UserController extends Controller
         //         $user->sheets()->create(['sheet_no' => $sheetNo]);
         //     }
         // }
+        if($request->sheet_no){
         foreach ($request->sheet_no as $key => $sheet_noData) {
             $sheetId = $request->sheet_ids[$key] ?? null; // Existing cost ID
 
@@ -316,12 +317,14 @@ class UserController extends Controller
             $cost->sheet_no = $request->sheet_no[$key];
             $cost->inventory_name = $request->inventory_name[$key];
             $cost->form_no = $request->form_no[$key];
+            $cost->dealer = $request->dealer[$key];
             // Save the cost instance
             $cost->save();
         }
-
-
         return redirect()->route('users.index')->with('success', 'User has been updated successfully!');
+    }
+    return redirect()->route('home')->with('success', 'User has been updated successfully!');
+
     }
 
     public function destroy($id)

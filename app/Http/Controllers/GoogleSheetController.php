@@ -13,52 +13,100 @@ class GoogleSheetController extends Controller
     public function index()
     {
         $user = Auth::user()->id;
-        $sheets = UserSheet::where('user_id', $user)->get();
-        
-        $allSheetData = []; // Initialize an array to hold the data of all sheets
-        $totalBookings = 0;
-        $totalReceived = 0;
-        $totalBalance = 0;
-        // dd($sheets);
-        
-        foreach ($sheets as $sheet) {
-            $totalBookings = $totalBookings + 1;
-            // dd($sheet->sheet_no);
-            $data  = (new GoogleSheetsServices($sheet->sheet_no))->readSheets();
-            $decodedData = json_decode(json_encode($data), true);
+        $dealer_check = Auth::user()->name;
+        $sheets = UserSheet::where('dealer', $dealer_check)->get();
+        $hasNonNullSheetNo = $sheets->isNotEmpty() && $sheets->contains(function ($sheet) {
+            return !is_null($sheet->sheet_no);
+        });
+        if ($hasNonNullSheetNo) {
+            $allSheetData = []; // Initialize an array to hold the data of all sheets
+            $totalBookings = 0;
+            $totalReceived = 0;
+            $totalBalance = 0;
+            // dd($sheets);
 
-            $totalPrice = $decodedData['values'][4][2];
-            $registrationNumber = $decodedData['values'][4][4];
-            $productCode = $decodedData['values'][5][7];
-            $paidAmount = (float) str_replace(',', '', $decodedData['values'][59][3]);
-            $totalReceived = $totalReceived + $paidAmount;
+            foreach ($sheets as $sheet) {
+                $totalBookings = $totalBookings + 1;
+                // dd($sheet->sheet_no);
+                $data  = (new GoogleSheetsServices($sheet->sheet_no))->readSheets();
+                $decodedData = json_decode(json_encode($data), true);
 
-            $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][59][8]);
-            $totalBalance = $totalBalance + $outstandingBalance;
+                $totalPrice = $decodedData['values'][4][2];
+                $registrationNumber = $decodedData['values'][4][4];
+                $productCode = $decodedData['values'][5][7];
+                $paidAmount = (float) str_replace(',', '', $decodedData['values'][59][3]);
+                $totalReceived = $totalReceived + $paidAmount;
 
-            $allSheetData[$sheet->sheet_no] = [
-                'totalPrice' => $totalPrice,
-                'registrationNumber' => $registrationNumber,
-                'productCode' => $productCode,
-                'paidAmount' => $paidAmount,
-                'outstandingBalance' => $outstandingBalance
-            ];
+                $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][59][8]);
+                $totalBalance = $totalBalance + $outstandingBalance;
+
+                $allSheetData[$sheet->sheet_no] = [
+                    'totalPrice' => $totalPrice,
+                    'registrationNumber' => $registrationNumber,
+                    'productCode' => $productCode,
+                    'paidAmount' => $paidAmount,
+                    'outstandingBalance' => $outstandingBalance
+                ];
+            }
+
+            return view('admin.sheets.index', ['user' => $user, 'sheets' => $allSheetData, 'totalReceived' => $totalReceived, 'totalBalance' => $totalBalance, 'totalBookings' => $totalBookings]);
+        } else {
+            $user = Auth::user()->id;
+            $sheets = UserSheet::where('user_id', $user)->get();
+
+            // Check if all 'sheet_no' values are null
+            $allSheetNumbersNull = $sheets->every(function ($sheet) {
+                return is_null($sheet->sheet_no);
+            });
+
+            if ($sheets->isEmpty() || $allSheetNumbersNull) {
+                return view('admin.sheets.empty');
+            }
+            $allSheetData = []; // Initialize an array to hold the data of all sheets
+            $totalBookings = 0;
+            $totalReceived = 0;
+            $totalBalance = 0;
+            // dd($sheets);
+
+            foreach ($sheets as $sheet) {
+                $totalBookings = $totalBookings + 1;
+                // dd($sheet->sheet_no);
+                $data  = (new GoogleSheetsServices($sheet->sheet_no))->readSheets();
+                $decodedData = json_decode(json_encode($data), true);
+
+                $totalPrice = $decodedData['values'][4][2];
+                $registrationNumber = $decodedData['values'][4][4];
+                $productCode = $decodedData['values'][5][7];
+                $paidAmount = (float) str_replace(',', '', $decodedData['values'][59][3]);
+                $totalReceived = $totalReceived + $paidAmount;
+
+                $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][59][8]);
+                $totalBalance = $totalBalance + $outstandingBalance;
+
+                $allSheetData[$sheet->sheet_no] = [
+                    'totalPrice' => $totalPrice,
+                    'registrationNumber' => $registrationNumber,
+                    'productCode' => $productCode,
+                    'paidAmount' => $paidAmount,
+                    'outstandingBalance' => $outstandingBalance
+                ];
+            }
+
+            return view('admin.sheets.index', ['user' => $user, 'sheets' => $allSheetData, 'totalReceived' => $totalReceived, 'totalBalance' => $totalBalance, 'totalBookings' => $totalBookings]);
         }
-
-        return view('admin.sheets.index', ['user' => $user, 'sheets' => $allSheetData, 'totalReceived' => $totalReceived, 'totalBalance' => $totalBalance, 'totalBookings' => $totalBookings]);
     }
-    
-    public function user_sheets(Request $request , $id)
+
+    public function user_sheets(Request $request, $id)
     {
         $user = $id;
         $sheets = UserSheet::where('user_id', $user)->get();
-        
+
         $allSheetData = []; // Initialize an array to hold the data of all sheets
         $totalBookings = 0;
         $totalReceived = 0;
         $totalBalance = 0;
         // dd($sheets);
-        
+
         foreach ($sheets as $sheet) {
             $totalBookings = $totalBookings + 1;
             // dd($sheet->sheet_no);
@@ -74,7 +122,7 @@ class GoogleSheetController extends Controller
 
             $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][59][8]);
             // $outstandingBalance = $decodedData['values'][59][8];
-            
+
             $totalBalance = $totalBalance + $outstandingBalance;
             // dd($totalBalance);
             $allSheetData[$sheet->sheet_no] = [
@@ -93,14 +141,14 @@ class GoogleSheetController extends Controller
     {
         $user = $id;
         $result = UserSheet::where('user_id', $user)->orderBy('created_at', 'DESC');
-    
+
         $aColumns = ['registrationNumber', 'productCode', 'totalPrice', 'paidAmount', 'outstandingBalance'];
-    
+
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
         $order = 'created_at';
         $sort = ' DESC';
-    
+
         if ($request->get('iSortCol_0')) {
 
             $sOrder = "ORDER BY  ";
@@ -120,7 +168,7 @@ class GoogleSheetController extends Controller
             $order = trim($OrderArray[3]);
             $sort = trim($OrderArray[4]);
         }
-    
+
         // Search functionality
         $sKeywords = $request->get('sSearch');
         if ($sKeywords != "") {
@@ -160,20 +208,20 @@ class GoogleSheetController extends Controller
 
         $totalReceived = 0;
         $totalBalance = 0;
-    
+
         foreach ($linksData as $aRow) {
             $data = (new GoogleSheetsServices($aRow->sheet_no))->readSheets();
             $decodedData = json_decode(json_encode($data), true);
-    
+
             $totalPrice = $decodedData['values'][4][2];
             $registrationNumber = $decodedData['values'][4][4];
             $productCode = $decodedData['values'][5][7];
             $paidAmount = (float) str_replace(',', '', $decodedData['values'][59][3]);
             $totalReceived += $paidAmount;
-    
+
             $outstandingBalance = (float) str_replace(',', '', $decodedData['values'][59][8]);
             $totalBalance += $outstandingBalance;
-    
+
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
                           aria-expanded=\"false\" class=\"btn btn-info btn-sm dropdown-toggle\"><i class=\"la la-cog font-medium-1\"></i></button>
@@ -181,7 +229,7 @@ class GoogleSheetController extends Controller
                             <a href=\"" . route('sheet.single', ['id' => $aRow->sheet_no]) . "\" class=\"dropdown-item font-small-3\"><i class=\"la la-barcode font-small-3\"></i> View Statement</a>
                           </span>
                         </span>";
-            
+
             $paidAmount = number_format($paidAmount);
             $outstandingBalance = number_format($outstandingBalance);
             $output['aaData'][] = [
@@ -194,7 +242,7 @@ class GoogleSheetController extends Controller
                 $action,
             ];
         }
-    
+
         return response()->json($output);
     }
 

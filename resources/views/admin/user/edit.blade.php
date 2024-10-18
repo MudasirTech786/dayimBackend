@@ -66,10 +66,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="email">Email</label>
+                                        <label class="col-md-3 label-control" for="email">Emails</label>
                                         <div class="col-md-9">
                                             <input type="email" class="form-control border-primary" placeholder="Email"
-                                                name="email" value="{{ $user->email }}" id="email">
+                                                name="email" value="{{ $user->email ?? ' ' }}" id="email">
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                             <label class="col-md-3 label-control" for="userinput1">Change Password</label>
                                             <div class="col-md-9">
                                                 <input type="password" class="form-control border-primary" value=""
-                                                    name="password">
+                                                    value="{{ $user->password }}" name="password">
                                             </div>
                                         </div>
                                     </div>
@@ -154,13 +154,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="address">Active</label>
-                                        <div class="col-md-9">
-                                            <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
-                                                name="activeUser" value="1" {{ $user->active ? 'checked' : '' }}>
+                                    @if ($currentRole == 'Admin')
+                                        <div class="col-md-6 row">
+                                            <label class="col-md-3 label-control" for="address">Active</label>
+                                            <div class="col-md-9">
+                                                <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
+                                                    name="activeUser" value="1"
+                                                    {{ $user->active ? 'checked' : '' }}>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
+                                    <input type="text" class="form-control border-primary" placeholder="CNIC"
+                                        name="cnic" value="{{ $user->cnic }}" required id="cnic" hidden>
+                                    <select name="roles" class="form-control" style="width: 500px" hidden>
+                                        @foreach ($roles as $roleName)
+                                            <option value="{{ $roleName }}"
+                                                {{ $roleName == $currentRole ? 'selected' : '' }}>
+                                                {{ $roleName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <input type="password" class="form-control border-primary" value=""
+                                        value="{{ $user->password }}" name="password" hidden>
+                                    <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
+                                        name="activeUser" value="1" {{ $user->active ? 'checked' : '' }} hidden>
                                     {{-- <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="image">Image</label>
                                         <div class="col-md-9">
@@ -191,7 +208,7 @@
                                     <div id="sheetDiv">
                                         @foreach ($user->sheets as $sheet)
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group row">
                                                         <label class="col-md-4 label-control"
                                                             for="sheet_no_{{ $sheet->id }}">Sheet Number</label>
@@ -204,7 +221,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group row">
                                                         <label class="col-md-4 label-control"
                                                             for="inventory_name_{{ $sheet->id }}">Inventory
@@ -217,7 +234,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group row">
                                                         <label class="col-md-4 label-control"
                                                             for="form_no_{{ $sheet->id }}">Form Number</label>
@@ -226,6 +243,24 @@
                                                                 id="form_no_{{ $sheet->id }}"
                                                                 placeholder="Form Number" name="form_no[]"
                                                                 value="{{ $sheet->form_no }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 label-control"
+                                                            for="dealer_{{ $sheet->id }}">Dealer Name</label>
+                                                        <div class="col-md-8">
+                                                            <select class="form-control border-primary" name="dealer[]"
+                                                                id="dealer_{{ $sheet->id }}">
+                                                                <option value="">Select Dealer</option>
+                                                                @foreach ($users as $dealer)
+                                                                    <option value="{{ $dealer->name }}"
+                                                                        {{ $sheet->dealer == $dealer->name ? 'selected' : '' }}>
+                                                                        {{ $dealer->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -279,6 +314,19 @@
                 <label class="col-md-4 label-control">Form Number</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control border-primary" placeholder="Form Number" name="form_no[]" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group row">
+                <label class="col-md-4 label-control">Dealer Name</label>
+                <div class="col-md-8">
+                    <select class="form-control border-primary" name="dealer[]" required>
+                        <option value="">Select Dealer</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>

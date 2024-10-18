@@ -34,7 +34,6 @@
                         <i class="la la-user"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">Edit Profile</span>
                     </a>
-
                 </li>
                 @endif
 
@@ -86,23 +85,23 @@
                         </li>
                     @endif
 
-                    <li class="nav-item"><a href=""><i class="la la-user"></i><span class="menu-title"
-                                data-i18n="nav.dash.main">Events</span></a>
-                        <ul class="menu-content">
-                            <li class="">
-                                <a class="menu-item" href="{{ route('dayim.index') }}"
-                                    data-i18n="nav.dash.ecommerce">DM
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="menu-content">
-                            <li class="">
-                                <a class="menu-item" href="{{ route('dsa.index') }}"
-                                    data-i18n="nav.dash.ecommerce">DSA
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if (auth()->user()->can('users-list') || auth()->user()->can('users-create') || auth()->user()->can('roles-list'))
+                        <li class="nav-item"><a href=""><i class="la la-user"></i><span class="menu-title"
+                                    data-i18n="nav.dash.main">Events</span></a>
+                            <ul class="menu-content">
+                                <li class="">
+                                    <a class="menu-item" href="{{ route('dayim.index') }}" data-i18n="nav.dash.ecommerce">DM
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="menu-content">
+                                <li class="">
+                                    <a class="menu-item" href="{{ route('dsa.index') }}" data-i18n="nav.dash.ecommerce">DSA
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
