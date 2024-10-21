@@ -12,45 +12,46 @@ class GoogleSheetController extends Controller
 {
     public function index()
     {
-        $user = Auth::user()->id;
-        $dealer_check = Auth::user()->name;
-        $sheets = UserSheet::where('dealer', $dealer_check)->get();
-        $hasNonNullSheetNo = $sheets->isNotEmpty() && $sheets->contains(function ($sheet) {
-            return !is_null($sheet->sheet_no);
-        });
-        if ($hasNonNullSheetNo) {
-            $allSheetData = []; // Initialize an array to hold the data of all sheets
-            $totalBookings = 0;
-            $totalReceived = 0;
-            $totalBalance = 0;
-            // dd($sheets);
+        // $user = Auth::user()->id;
+        // $dealer_check = Auth::user()->name;
+        // $sheets = UserSheet::where('dealer', $dealer_check)->get();
+        // $hasNonNullSheetNo = $sheets->isNotEmpty() && $sheets->contains(function ($sheet) {
+        //     return !is_null($sheet->sheet_no);
+        // });
+        // if ($hasNonNullSheetNo) {
+        //     $allSheetData = []; // Initialize an array to hold the data of all sheets
+        //     $totalBookings = 0;
+        //     $totalReceived = 0;
+        //     $totalBalance = 0;
+        //     // dd($sheets);
 
-            foreach ($sheets as $sheet) {
-                $totalBookings = $totalBookings + 1;
-                // dd($sheet->sheet_no);
-                $data  = (new GoogleSheetsServices($sheet->sheet_no))->readSheets();
-                $decodedData = json_decode(json_encode($data), true);
+        //     foreach ($sheets as $sheet) {
+        //         $totalBookings = $totalBookings + 1;
+        //         // dd($sheet->sheet_no);
+        //         $data  = (new GoogleSheetsServices($sheet->sheet_no))->readSheets();
+        //         $decodedData = json_decode(json_encode($data), true);
 
-                $totalPrice = $decodedData['values'][4][2];
-                $registrationNumber = $decodedData['values'][4][4];
-                $productCode = $decodedData['values'][5][7];
-                $paidAmount = (float) str_replace(',', '', $decodedData['values'][59][3]);
-                $totalReceived = $totalReceived + $paidAmount;
+        //         $totalPrice = $decodedData['values'][4][2];
+        //         $registrationNumber = $decodedData['values'][4][4];
+        //         $productCode = $decodedData['values'][5][7];
+        //         $paidAmount = (float) str_replace(',', '', $decodedData['values'][59][3]);
+        //         $totalReceived = $totalReceived + $paidAmount;
 
-                $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][59][8]);
-                $totalBalance = $totalBalance + $outstandingBalance;
+        //         $outstandingBalance = (float) str_replace(',', '',  $decodedData['values'][59][8]);
+        //         $totalBalance = $totalBalance + $outstandingBalance;
 
-                $allSheetData[$sheet->sheet_no] = [
-                    'totalPrice' => $totalPrice,
-                    'registrationNumber' => $registrationNumber,
-                    'productCode' => $productCode,
-                    'paidAmount' => $paidAmount,
-                    'outstandingBalance' => $outstandingBalance
-                ];
-            }
+        //         $allSheetData[$sheet->sheet_no] = [
+        //             'totalPrice' => $totalPrice,
+        //             'registrationNumber' => $registrationNumber,
+        //             'productCode' => $productCode,
+        //             'paidAmount' => $paidAmount,
+        //             'outstandingBalance' => $outstandingBalance
+        //         ];
+        //     }
 
-            return view('admin.sheets.index', ['user' => $user, 'sheets' => $allSheetData, 'totalReceived' => $totalReceived, 'totalBalance' => $totalBalance, 'totalBookings' => $totalBookings]);
-        } else {
+        //     return view('admin.sheets.index', ['user' => $user, 'sheets' => $allSheetData, 'totalReceived' => $totalReceived, 'totalBalance' => $totalBalance, 'totalBookings' => $totalBookings]);
+        // } else {
+
             $user = Auth::user()->id;
             $sheets = UserSheet::where('user_id', $user)->get();
 
@@ -93,7 +94,7 @@ class GoogleSheetController extends Controller
             }
 
             return view('admin.sheets.index', ['user' => $user, 'sheets' => $allSheetData, 'totalReceived' => $totalReceived, 'totalBalance' => $totalBalance, 'totalBookings' => $totalBookings]);
-        }
+        // }
     }
 
     public function user_sheets(Request $request, $id)

@@ -33,4 +33,8 @@ Route::post('/contact', [ContactController::class, 'storeApi']);
 
 Route::get('/products', [ProductsController::class, 'apiIndex']);
 
-Route::post('/users', [UserController::class, 'storeUserApi'])->name('api.users.store');
+Route::post('/register', [UserController::class, 'storeUserApi'])->name('api.users.store');
+Route::post("/login", [UserController::class, 'login']);
+Route::post("checkCredentials", [UserController::class, 'checkCredentias']);
+
+Route::apiResource('payment-types', PaymentTypesController::class);

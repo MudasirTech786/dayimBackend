@@ -84,7 +84,6 @@ class UserController extends Controller
         $rules = [
             'name' => 'nullable|string|max:255',
             'cnic' => 'required|string|unique:users,cnic',
-            'dob' => 'nullable|date',
             'gender' => 'nullable|string|max:255',
             'occupation' => 'nullable|string|max:255',
             'phone' => 'nullable|numeric',
@@ -132,6 +131,64 @@ class UserController extends Controller
         ], 201);
     }
 
+    public function login(Request $request)
+    {
+        $request->validate([
+            'cnic' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('cnic', 'password');
+
+        // Check if the user exists and is active
+        $user = User::where('cnic', $request->cnic)->first();
+
+        if ($user) {
+
+            // Attempt to authenticate the user
+            if (Auth::attempt($credentials)) {
+                // Generate an access token for the user
+                $token = $user->createToken('Personal Access Token')->plainTextToken;
+
+                return response()->json([
+                    'message' => 'Login successful',
+                    'token' => $token,
+                    'user' => $user,
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => 'Invalid credentials',
+                ], 401);
+            }
+        } else {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+    }
+
+    public function checkCredentias(Request $request)
+    {
+        $payload = $request->validate([
+            'cnic' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        try {
+            $user = User::where('cnic', $request->cnic)->first();
+            if ($user) {
+                // * Check password
+                if (!Hash::check($payload["password"], $user->password)) {
+                    return response()->json([ "message" => "Invalid credentials."],401);
+                }
+                return response()->json([ "message" => "Loggedin succssfully!"],200);
+            }
+            return response()->json(["message" => "No account found with these credentials."],401);
+        } catch (\Exception $err) {
+            Log::info("user_register_err =>" . $err->getMessage());
+            return response()->json(["message" => "Something went wrong!"], 500);
+        }
+    }
 
     public function get_users(Request $request)
     {
@@ -305,26 +362,25 @@ class UserController extends Controller
         //         $user->sheets()->create(['sheet_no' => $sheetNo]);
         //     }
         // }
-        if($request->sheet_no){
-        foreach ($request->sheet_no as $key => $sheet_noData) {
-            $sheetId = $request->sheet_ids[$key] ?? null; // Existing cost ID
+        if ($request->sheet_no) {
+            foreach ($request->sheet_no as $key => $sheet_noData) {
+                $sheetId = $request->sheet_ids[$key] ?? null; // Existing cost ID
 
-            $cost = UserSheet::findOrNew($sheetId);
+                $cost = UserSheet::findOrNew($sheetId);
 
-            // Update the cost attributes
-            // $cost->item_id = $transport->id;
-            $cost->user_id = $id;
-            $cost->sheet_no = $request->sheet_no[$key];
-            $cost->inventory_name = $request->inventory_name[$key];
-            $cost->form_no = $request->form_no[$key];
-            $cost->dealer = $request->dealer[$key];
-            // Save the cost instance
-            $cost->save();
+                // Update the cost attributes
+                // $cost->item_id = $transport->id;
+                $cost->user_id = $id;
+                $cost->sheet_no = $request->sheet_no[$key];
+                $cost->inventory_name = $request->inventory_name[$key];
+                $cost->form_no = $request->form_no[$key];
+                $cost->dealer = $request->dealer[$key];
+                // Save the cost instance
+                $cost->save();
+            }
+            return redirect()->route('users.index')->with('success', 'User has been updated successfully!');
         }
-        return redirect()->route('users.index')->with('success', 'User has been updated successfully!');
-    }
-    return redirect()->route('home')->with('success', 'User has been updated successfully!');
-
+        return redirect()->route('home')->with('success', 'User has been updated successfully!');
     }
 
     public function destroy($id)

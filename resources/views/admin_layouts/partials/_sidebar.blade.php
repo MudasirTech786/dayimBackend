@@ -102,6 +102,12 @@
                             </ul>
                         </li>
                     @endif
+
+                    @if (auth()->user()->can('users-list') || auth()->user()->can('users-create') || auth()->user()->can('roles-list'))
+                            <li class="nav-item"><a href="{{ route('payment.index') }}"><i class="la la-phone"></i><span
+                                        class="menu-title" data-i18n="nav.dash.main">View Payments</span></a>
+                            </li>
+                    @endif
                 </ul>
             </div>
         </div>
