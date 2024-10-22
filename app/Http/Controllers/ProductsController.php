@@ -133,7 +133,7 @@ class ProductsController extends Controller
 
         $result = Product::orderBy('created_at', 'DESC');
 
-        $aColumns = ['floor' , 'type' , 'number' , 'sold'];
+        $aColumns = ['floor', 'type', 'number', 'sold'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -238,12 +238,26 @@ class ProductsController extends Controller
 
     public function apiIndex()
     {
-        // Retrieve all products
-        $products = Product::all();
+        try {
+            // Retrieve all products
+            $products = Product::all();
 
-        // Return a JSON response
-        return response()->json($products, 200); // HTTP 200 OK
+            // Return a success response with HTTP 200 OK
+            return response()->json([
+                'status' => 'success',
+                'data' => $products,
+                'message' => 'Products retrieved successfully.'
+            ], 200);
+        } catch (\Exception $e) {
+            // Return error response in case of an exception
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while retrieving products.',
+                'error' => $e->getMessage()
+            ], 500); // HTTP 500 Internal Server Error
+        }
     }
+
 
 
     /**

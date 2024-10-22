@@ -136,7 +136,7 @@ class UserController extends Controller
                 'status' => 'success',
                 'message' => 'User has been added successfully!',
                 'user' => $user
-            ], 201); // Created
+            ], 200); // Created
 
         } catch (\Exception $e) {
             // Rollback the transaction

@@ -185,7 +185,7 @@ class PaymentTypesController extends Controller
                 'status' => 'success',
                 'data' => $paymentType,
                 'message' => 'Payment type created successfully!'
-            ], 201); // Created
+            ], 200); // Created
     
         } catch (\Exception $e) {
             // Rollback transaction if error occurs
