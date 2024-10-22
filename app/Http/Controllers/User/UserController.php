@@ -32,7 +32,6 @@ class UserController extends Controller
         $rules = [
             'name' => 'required|string|max:255',
             'cnic' => 'required|string|unique:users,cnic',
-            'dob' => 'nullable|date',
             'gender' => 'nullable|string|max:255',
             'occupation' => 'nullable|string|max:255',
             'phone' => 'nullable|numeric',
@@ -50,7 +49,7 @@ class UserController extends Controller
         }
 
         // Creating the user
-        $user = new User($request->only('name', 'email', 'cnic', 'dob', 'gender', 'occupation', 'phone', 'address', 'active'));
+        $user = new User($request->only('name', 'email', 'cnic', 'gender', 'occupation', 'phone', 'address', 'active'));
         $user->password = Hash::make($request->password);
 
         if ($request->hasFile('image')) {
@@ -360,7 +359,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->cnic = $request->cnic;
-        $user->dob = $request->dob;
         $user->gender = $request->gender;
         $user->occupation = $request->occupation;
         $user->phone = $request->phone;
