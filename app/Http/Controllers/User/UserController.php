@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -95,77 +96,107 @@ class UserController extends Controller
             'form_no' => 'nullable|string|max:255',
         ];
 
-        // Create a validator
+        // Validate the request
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
                 'errors' => $validator->errors()
-            ], 422);
+            ], 422); // Unprocessable Entity
         }
 
-        // Creating the user
-        $user = new User($request->only('name', 'email', 'cnic', 'dob', 'gender', 'occupation', 'phone', 'address', 'active'));
-        $user->password = Hash::make($request->password);
-        $user->save(); // Save the user
+        try {
+            // Start transaction
+            DB::beginTransaction();
 
-        // Creating and saving user sheet
-        $userSheet = new UserSheet([
-            'sheet_no' => $request->sheet_no,
-            'inventory_name' => $request->inventory_name,
-            'form_no' => $request->form_no
-        ]);
-        $user->sheets()->save($userSheet); // Associate and save user sheet
+            // Creating the user
+            $user = new User($request->only('name', 'email', 'cnic', 'gender', 'occupation', 'phone', 'address', 'active'));
+            $user->password = Hash::make($request->password);
+            $user->save(); // Save the user
 
-        // Assign roles, if role assignment is part of the request
-        if ($request->filled('roles')) {
-            $roles = $request->input('roles');
-            $user->assignRole($roles); // Assuming you are using Spatie Permission Package
+            // Creating and saving user sheet
+            $userSheet = new UserSheet([
+                'sheet_no' => $request->sheet_no,
+                'inventory_name' => $request->inventory_name,
+                'form_no' => $request->form_no
+            ]);
+            $user->sheets()->save($userSheet); // Associate and save user sheet
+
+            // Assign roles, if role assignment is part of the request
+            if ($request->filled('roles')) {
+                $roles = $request->input('roles');
+                $user->assignRole($roles); // Assuming you are using Spatie Permission Package
+            }
+
+            // Commit the transaction
+            DB::commit();
+
+            // Return success response
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User has been added successfully!',
+                'user' => $user
+            ], 201); // Created
+
+        } catch (\Exception $e) {
+            // Rollback the transaction
+            DB::rollBack();
+
+            // Return error response
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while adding the user!',
+                'error' => $e->getMessage()
+            ], 500); // Internal Server Error
         }
-
-        // Return success response
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User has been added successfully!',
-            'user' => $user
-        ], 201);
     }
 
+
     public function login(Request $request)
-    {
-        $request->validate([
-            'cnic' => 'required|string',
-            'password' => 'required|string',
-        ]);
+{
+    // Validate incoming request
+    $request->validate([
+        'cnic' => 'required|string',
+        'password' => 'required|string',
+    ]);
 
-        $credentials = $request->only('cnic', 'password');
-
+    try {
         // Check if the user exists and is active
         $user = User::where('cnic', $request->cnic)->first();
 
-        if ($user) {
-
-            // Attempt to authenticate the user
-            if (Auth::attempt($credentials)) {
-                // Generate an access token for the user
-                $token = $user->createToken('Personal Access Token')->plainTextToken;
-
-                return response()->json([
-                    'message' => 'Login successful',
-                    'token' => $token,
-                    'user' => $user,
-                ], 200);
-            } else {
-                return response()->json([
-                    'message' => 'Invalid credentials',
-                ], 401);
-            }
-        } else {
+        if (!$user) {
             return response()->json([
                 'message' => 'User not found',
-            ], 404);
+            ], 404); // Not Found
         }
+
+        // Credentials from request
+        $credentials = $request->only('cnic', 'password');
+
+        // Attempt to authenticate the user
+        if (Auth::attempt($credentials)) {
+            // Generate access token for the authenticated user
+            $token = $user->createToken('Personal Access Token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Login successful',
+                'token' => $token,
+                'user' => $user,
+            ], 200); // OK
+        } else {
+            return response()->json([
+                'message' => 'Invalid credentials',
+            ], 401); // Unauthorized
+        }
+    } catch (\Exception $e) {
+        // Catch any exceptions and return an error response
+        return response()->json([
+            'message' => 'An error occurred during login',
+            'error' => $e->getMessage()
+        ], 500); // Internal Server Error
     }
+}
+
 
     public function checkCredentias(Request $request)
     {
@@ -179,11 +210,11 @@ class UserController extends Controller
             if ($user) {
                 // * Check password
                 if (!Hash::check($payload["password"], $user->password)) {
-                    return response()->json([ "message" => "Invalid credentials."],401);
+                    return response()->json(["message" => "Invalid credentials."], 401);
                 }
-                return response()->json([ "message" => "Loggedin succssfully!"],200);
+                return response()->json(["message" => "Loggedin succssfully!"], 200);
             }
-            return response()->json(["message" => "No account found with these credentials."],401);
+            return response()->json(["message" => "No account found with these credentials."], 401);
         } catch (\Exception $err) {
             Log::info("user_register_err =>" . $err->getMessage());
             return response()->json(["message" => "Something went wrong!"], 500);

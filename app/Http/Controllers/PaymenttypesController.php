@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -147,30 +148,58 @@ class PaymentTypesController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation rules
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'product_id' => 'required|exists:products,id',
-            'cash' => 'string',
-            'payment' => 'string',
+            'cash' => 'nullable|string',
+            'payment' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
         ]);
-
-        $paymentType = new PaymentTypes();
-        $paymentType->user_id = $request->user_id;
-        $paymentType->product_id = $request->product_id;
-        $paymentType->cash = $request->cash;
-        $paymentType->payment = $request->payment;
-
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('payments', 'public'); // Store in public disk
-            $paymentType->image = $path;
+    
+        try {
+            // Start a transaction
+            DB::beginTransaction();
+    
+            // Create new PaymentType
+            $paymentType = new PaymentTypes();
+            $paymentType->user_id = $request->user_id;
+            $paymentType->product_id = $request->product_id;
+            $paymentType->cash = $request->cash;
+            $paymentType->payment = $request->payment;
+    
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('payments', 'public'); // Store in public disk
+                $paymentType->image = $path;
+            }
+    
+            // Save the payment type record
+            $paymentType->save();
+    
+            // Commit the transaction
+            DB::commit();
+    
+            // Return success response
+            return response()->json([
+                'status' => 'success',
+                'data' => $paymentType,
+                'message' => 'Payment type created successfully!'
+            ], 201); // Created
+    
+        } catch (\Exception $e) {
+            // Rollback transaction if error occurs
+            DB::rollBack();
+    
+            // Return error response
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while saving the payment type.',
+                'error' => $e->getMessage()
+            ], 500); // Internal Server Error
         }
-
-        $paymentType->save();
-
-        return response()->json($paymentType, 201);
     }
+    
 
 
     /**
@@ -189,10 +218,10 @@ class PaymentTypesController extends Controller
      */
     public function edit(string $id)
     {
-        $paymentType = PaymentTypes::findOrFail($id);
-        $users = User::all();
-        $products = Product::all();
-        return view('admin.payment_types.edit', compact('paymentType', 'users', 'products'));
+        // $paymentType = PaymentTypes::findOrFail($id);
+        // $users = User::all();
+        // $products = Product::all();
+        // return view('admin.payment_types.edit', compact('paymentType', 'users', 'products'));
     }
 
     /**
