@@ -94,35 +94,7 @@
                                         </div>
                                     </div>
                                 @endif
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="dob">DOB</label>
-                                            <div class="col-md-9">
-                                                <input type="date" value="{{ $user->dob }}"
-                                                    class="form-control border-primary" name="dob" id="dob">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="gender">Gender</label>
-                                        <div class="col-md-9">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="maleGenderRadio"
-                                                    name="gender" value="M"
-                                                    {{ $user->gender == 'M' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="maleGenderRadio">Male</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="femaleGenderRadio"
-                                                    name="gender" value="F"
-                                                    {{ $user->gender == 'F' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="femaleGenderRadio">Female</label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                                
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -186,6 +158,9 @@
                                         </div>
                                     </div> --}}
                                 </div>
+                                <div class="row">
+                                    
+                                </div>
                                 @if ($currentRole == 'Admin')
                                     <div class="row">
                                         <div class="col-md-6">
@@ -202,6 +177,24 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6 row">
+                                            <label class="col-md-3 label-control" for="gender">Gender</label>
+                                            <div class="col-md-9">
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="maleGenderRadio"
+                                                        name="gender" value="M"
+                                                        {{ $user->gender == 'M' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="maleGenderRadio">Male</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="femaleGenderRadio"
+                                                        name="gender" value="F"
+                                                        {{ $user->gender == 'F' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="femaleGenderRadio">Female</label>
+                                                </div>
+                                            </div>
+    
                                         </div>
                                     </div>
 
