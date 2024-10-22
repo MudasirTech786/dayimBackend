@@ -158,19 +158,16 @@
                                         </div>
                                     </div> --}}
                                 </div>
-                                <div class="row">
-                                    
-                                </div>
                                 @if ($currentRole == 'Admin')
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="userinput1">Role</label>
                                                 <div class="col-md-6">
-                                                    <select name="roles" class="form-control" style="width: 500px">
+                                                    <select name="roles" class="form-control" style="width: 200px">
                                                         @foreach ($roles as $roleName)
                                                             <option value="{{ $roleName }}"
-                                                                {{ $roleName == $currentRole ? 'selected' : '' }}>
+                                                                {{ $roleName == $user->roles->first()->name ? 'selected' : '' }}>
                                                                 {{ $roleName }}
                                                             </option>
                                                         @endforeach
