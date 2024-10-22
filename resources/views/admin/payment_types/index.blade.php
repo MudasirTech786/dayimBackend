@@ -109,6 +109,7 @@
                                     <thead>
                                         <tr>
                                             <th style="width:700px">User</th>
+                                            <th style="width:700px">ID Card</th>
                                             <th style="width:700px">Property</th>
                                             <th style="width:700px">Type</th>
                                             <th>Action</th>

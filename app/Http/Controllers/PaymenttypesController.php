@@ -30,7 +30,7 @@ class PaymentTypesController extends Controller
         $result = PaymentTypes::with(['user', 'product']) // Eager load relationships
             ->orderBy('created_at', 'DESC');
 
-        $aColumns = ['user.name', 'product.name', 'cash', 'payment'];
+        $aColumns = ['user.name', 'user.cnic', 'product.name', 'cash', 'payment'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -64,6 +64,9 @@ class PaymentTypesController extends Controller
             $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhereHas('user', function ($query) use ($sKeywords) {
                     $query->where('name', 'LIKE', "%{$sKeywords}%");
+                });
+                $query->orWhereHas('user', function ($query) use ($sKeywords) {
+                    $query->where('cnic', 'LIKE', "%{$sKeywords}%");
                 });
                 $query->orWhereHas('product', function ($query) use ($sKeywords) {
                     $query->where('name', 'LIKE', "%{$sKeywords}%");
@@ -107,6 +110,7 @@ class PaymentTypesController extends Controller
             </label>";
 
             $username = $aRow->user->name ?? 'N/A';
+            $usercnic = $aRow->user->cnic ?? 'N/A';
             $productName = $aRow->product->name ?? 'N/A';
             $hotel_id = $aRow->id;
             $cash = $aRow->cash;
@@ -132,6 +136,7 @@ class PaymentTypesController extends Controller
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
                 @$username,
+                @$usercnic,
                 @$productName,
                 @$type,
                 @$action,

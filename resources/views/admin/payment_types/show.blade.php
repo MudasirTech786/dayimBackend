@@ -66,6 +66,12 @@
                                             </div>
                                         </div>
                                     @endif
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>ID Card #</strong>
+                                            <p class="form-control-static">{{ $paymentType->user->cnic }}</p>
+                                        </div>
+                                    </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <strong>Image:</strong><br>
