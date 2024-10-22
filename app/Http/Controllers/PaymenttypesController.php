@@ -109,7 +109,7 @@ class PaymentTypesController extends Controller
             <span></span>
             </label>";
 
-            $username = $aRow->user->name ?? 'N/A';
+            $username = $aRow->user->name ?? '';
             $usercnic = $aRow->user->cnic ?? 'N/A';
             $productName = $aRow->product->name ?? 'N/A';
             $hotel_id = $aRow->id;

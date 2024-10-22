@@ -108,7 +108,7 @@
                                     id="link_table">
                                     <thead>
                                         <tr>
-                                            <th style="width:700px">User</th>
+                                            <th style="width:700px">User Name</th>
                                             <th style="width:700px">ID Card</th>
                                             <th style="width:700px">Property</th>
                                             <th style="width:700px">Type</th>
