@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('sheet_no')->nullable();
             $table->text('inventory_name')->nullable();
             $table->text('form_no')->nullable();
-            $table->text('delaer')->nullable();
+            $table->text('dealer')->nullable();
             $table->timestamps();
         });
     }
