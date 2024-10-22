@@ -113,13 +113,12 @@ class PaymentTypesController extends Controller
             $usercnic = $aRow->user->cnic ?? 'N/A';
             $productName = $aRow->product->name ?? 'N/A';
             $hotel_id = $aRow->id;
-            $cash = $aRow->cash;
-            $online = $aRow->payment;
+            $payment = $aRow->payment;
             $type = 'None';
-            if ($cash == 'yes') {
+            if ($payment == 'cash') {
                 $type = "cash payment";
-            } elseif ($online == 'yes') {
-                $type = 'online payment';
+            } elseif ($payment == 'bank') {
+                $type = 'bank payment';
             }
 
 
@@ -157,7 +156,6 @@ class PaymentTypesController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'product_id' => 'required|exists:products,id',
-            'cash' => 'nullable|string',
             'payment' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
         ]);
@@ -170,7 +168,6 @@ class PaymentTypesController extends Controller
             $paymentType = new PaymentTypes();
             $paymentType->user_id = $request->user_id;
             $paymentType->product_id = $request->product_id;
-            $paymentType->cash = $request->cash;
             $paymentType->payment = $request->payment;
     
             // Handle image upload

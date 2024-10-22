@@ -51,7 +51,7 @@
                                             <p class="form-control-static">{{ $paymentType->product->name }}</p>
                                         </div>
                                     </div>
-                                    @if ($paymentType->cash == 'yes')
+                                    @if ($paymentType->payment == 'cash')
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <strong>Type:</strong>
@@ -62,7 +62,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <strong>Type:</strong>
-                                                <p class="form-control-static">Online Payment</p>
+                                                <p class="form-control-static">Bank Payment</p>
                                             </div>
                                         </div>
                                     @endif

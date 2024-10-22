@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id'); 
             $table->unsignedBigInteger('product_id');
-            $table->string('cash')->nullable(); // For storing cash amounts with precision
             $table->string('payment')->nullable(); // To store payment type or status
             $table->string('image')->nullable(); // Path to the image file
             $table->timestamps(); // Adds created_at and updated_at columns
