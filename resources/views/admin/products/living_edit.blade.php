@@ -34,7 +34,7 @@
                     @endif
                     <div class="card-body">
                         <form class="form form-horizontal" method="POST"
-                            action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
+                            action="{{ route('products.living_update', $product->id) }}" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="form-body">
@@ -48,8 +48,9 @@
                                                     <option value="">Select Option</option>
                                                     <option value="DSA" {{ $product->name == 'DSA' ? 'selected' : '' }}>
                                                         DSA</option>
-                                                        <option value="Dayim Living" {{ $product->name == 'Dayim Living' ? 'selected' : '' }}>
-                                                            Dayim Living</option>
+                                                    <option value="Dayim Living"
+                                                        {{ $product->name == 'Dayim Living' ? 'selected' : '' }}>
+                                                        Dayim Living</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -57,8 +58,7 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="dealer">Dealer Name</label>
                                         <div class="col-md-9">
-                                            <select class="form-control border-primary" name="dealer"
-                                                id="dealer">
+                                            <select class="form-control border-primary" name="dealer" id="dealer">
                                                 <option value="">Select Dealer</option>
                                                 @foreach ($dealers as $dealer)
                                                     <option value="{{ $dealer->name }}"
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -80,9 +80,11 @@
                                                     <option value="">Select Option</option>
                                                     <option value="Yes" {{ $product->sold == 'Yes' ? 'selected' : '' }}>
                                                         Yes</option>
-                                                    <option value="No" {{ $product->sold == 'No' ? 'selected' : '' }}>No
+                                                    <option value="No" {{ $product->sold == 'No' ? 'selected' : '' }}>
+                                                        No
                                                     </option>
-                                                    <option value="Reserved" {{ $product->sold == 'Reserved' ? 'selected' : '' }}>Reserved
+                                                    <option value="Reserved"
+                                                        {{ $product->sold == 'Reserved' ? 'selected' : '' }}>Reserved
                                                     </option>
                                                 </select>
                                             </div>
@@ -130,7 +132,8 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="floor">Floor</label>
                                             <div class="col-md-9">
-                                                <select class="form-control border-primary" name="floor" id="floor">
+                                                <select class="form-control border-primary" name="floor"
+                                                    id="floor">
                                                     <option value="">Select Floor</option>
                                                     <option value="Lower Ground"
                                                         {{ $product->floor == 'Lower Ground' ? 'selected' : '' }}>Lower
@@ -156,8 +159,9 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="number">Number</label>
                                         <div class="col-md-9">
-                                            <input type="number" class="form-control border-primary" placeholder="Number"
-                                                name="number" id="number" value="{{ $product->number }}">
+                                            <input type="number" class="form-control border-primary"
+                                                placeholder="Number" name="number" id="number"
+                                                value="{{ $product->number }}">
                                         </div>
                                     </div>
                                 </div>

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use App\Mail\AccountActivated;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -356,6 +358,8 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
+        $wasInactive = !$user->active;
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->cnic = $request->cnic;
@@ -363,6 +367,7 @@ class UserController extends Controller
         $user->occupation = $request->occupation;
         $user->phone = $request->phone;
         $user->address = $request->address;
+
         $user->active = $request->activeUser;
 
         if ($request->password) {
@@ -377,6 +382,10 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        if ($wasInactive && $user->active) {
+            Mail::to($user->email)->send(new AccountActivated($user));
+        }
 
         // Handle roles update
         $roles = $request->input('roles');

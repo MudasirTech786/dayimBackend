@@ -82,6 +82,12 @@
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="menu-content">
+                                <li class="">
+                                    <a class="menu-item" href="{{ route('products.living_index') }}" data-i18n="nav.dash.ecommerce">Dayim Living
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     @endif
 

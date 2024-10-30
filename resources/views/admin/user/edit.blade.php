@@ -28,33 +28,6 @@
                             @csrf
                             <div class="form-body">
                                 <h4 class="form-section"><i class="la la la-car"></i>Edit User</h4>
-                                {{-- <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Profile Picture</label>
-                                            <div
-                                                style="display: flex; align-items: center; justify-content: space-between; ">
-                                                @if ($route->image != null)
-                                                    <img src="{{ asset('uploads/' . $route->image) }} "
-                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
-                                                    border-radius: 5px; margin-left:142px;
-                                                    padding: 5px;
-                                                    margin-top: 5px;">
-                                                @else
-                                                    <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }} "
-                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
-                                                    border-radius: 5px; margin-left:142px;
-                                                    padding: 5px;
-                                                    margin-top: 5px;">
-                                                @endif
-                                                <div class="col-md-9">
-                                                    <input type="file" class="form-control border-primary"
-                                                        name="image">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -88,13 +61,14 @@
                                         <div class="col-md-6 row">
                                             <label class="col-md-3 label-control" for="userinput1">Change Password</label>
                                             <div class="col-md-9">
-                                                <input type="password" class="form-control border-primary" value=""
-                                                    value="{{ $user->password }}" name="password">
+                                                <input type="password" class="form-control border-primary"
+                                                    
+                                                    name="password">
                                             </div>
                                         </div>
                                     </div>
                                 @endif
-                                
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -130,33 +104,32 @@
                                         <div class="col-md-6 row">
                                             <label class="col-md-3 label-control" for="address">Active</label>
                                             <div class="col-md-9">
+                                                <!-- Hidden input to submit 0 when checkbox is unchecked -->
+                                                <input type="hidden" name="activeUser" value="0">
+
+                                                <!-- Visible checkbox for activeUser status -->
                                                 <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
                                                     name="activeUser" value="1"
                                                     {{ $user->active ? 'checked' : '' }}>
                                             </div>
                                         </div>
                                     @endif
-                                    <input type="text" class="form-control border-primary" placeholder="CNIC"
-                                        name="cnic" value="{{ $user->cnic }}" required id="cnic" hidden>
-                                    <select name="roles" class="form-control" style="width: 500px" hidden>
-                                        @foreach ($roles as $roleName)
-                                            <option value="{{ $roleName }}"
-                                                {{ $roleName == $currentRole ? 'selected' : '' }}>
-                                                {{ $roleName }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <input type="password" class="form-control border-primary" value=""
-                                        value="{{ $user->password }}" name="password" hidden>
-                                    <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
-                                        name="activeUser" value="1" {{ $user->active ? 'checked' : '' }} hidden>
-                                    {{-- <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="image">Image</label>
-                                        <div class="col-md-9">
-                                            <input type="file" class="form-control border-primary"
-                                                name="image" id="image" >
-                                        </div>
-                                    </div> --}}
+                                    @if ($currentRole != 'Admin')
+                                        <input type="text" class="form-control border-primary" placeholder="CNIC"
+                                            name="cnic" value="{{ $user->cnic }}" required id="cnic" hidden>
+                                        <select name="roles" class="form-control" style="width: 500px" hidden>
+                                            @foreach ($roles as $roleName)
+                                                <option value="{{ $roleName }}"
+                                                    {{ $roleName == $currentRole ? 'selected' : '' }}>
+                                                    {{ $roleName }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <input type="password" class="form-control border-primary" value=""
+                                            value="{{ $user->password }}" name="password" hidden>
+                                        <input type="checkbox" class="form-check-input" id="activeUserCheckbox"
+                                            name="activeUser" value="1" {{ $user->active ? 'checked' : '' }} hidden>
+                                    @endif
                                 </div>
                                 @if ($currentRole == 'Admin')
                                     <div class="row">
@@ -167,7 +140,7 @@
                                                     <select name="roles" class="form-control" style="width: 200px">
                                                         @foreach ($roles as $roleName)
                                                             <option value="{{ $roleName }}"
-                                                                {{ $roleName == $user->roles->first()->name ? 'selected' : '' }}>
+                                                                {{ $user->roles->first() && $roleName == $user->roles->first()->name ? 'selected' : '' }}>
                                                                 {{ $roleName }}
                                                             </option>
                                                         @endforeach
@@ -191,7 +164,7 @@
                                                     <label class="form-check-label" for="femaleGenderRadio">Female</label>
                                                 </div>
                                             </div>
-    
+
                                         </div>
                                     </div>
 

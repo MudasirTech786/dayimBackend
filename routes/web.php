@@ -41,8 +41,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password.update');
 
     Route::resource('products', ProductsController::class);
+    Route::get('/product', [ProductsController::class, 'living_index'])->name('products.living_index');
+    Route::get('/product/{id}/edit', [ProductsController::class, 'living_edit'])->name('products.living_edit');
+    Route::put('/product/{id}', [ProductsController::class, 'living_update'])->name('products.living_update');
     Route::get('/products', [ProductsController::class, 'index'])->name('products.index')->middleware('check.permission:users-list');
     Route::get('/get_products', [ProductsController::class, 'get_products']);
+    Route::get('/get_living_products', [ProductsController::class, 'get_living_products']);
     
     Route::resource('dsa', DSAController::class);
     Route::get('/get_dsa_events', [DSAController::class, 'get_dsa_events']);
