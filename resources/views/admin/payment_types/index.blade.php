@@ -111,6 +111,8 @@
                                             <th style="width:700px">User Name</th>
                                             <th style="width:700px">ID Card</th>
                                             <th style="width:700px">Property</th>
+                                            <th style="width:700px">Floor</th>
+                                            <th style="width:700px">Number</th>
                                             <th style="width:700px">Type</th>
                                             <th>Action</th>
                                         </tr>

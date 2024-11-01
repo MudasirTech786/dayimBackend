@@ -30,7 +30,7 @@ class PaymentTypesController extends Controller
         $result = PaymentTypes::with(['user', 'product']) // Eager load relationships
             ->orderBy('created_at', 'DESC');
 
-        $aColumns = ['user.name', 'user.cnic', 'product.name', 'cash', 'payment'];
+        $aColumns = ['user.name', 'user.cnic', 'product.name', 'product.floor', 'product.number', 'cash', 'payment'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -70,6 +70,12 @@ class PaymentTypesController extends Controller
                 });
                 $query->orWhereHas('product', function ($query) use ($sKeywords) {
                     $query->where('name', 'LIKE', "%{$sKeywords}%");
+                });
+                $query->orWhereHas('product', function ($query) use ($sKeywords) {
+                    $query->where('floor', 'LIKE', "%{$sKeywords}%");
+                });
+                $query->orWhereHas('product', function ($query) use ($sKeywords) {
+                    $query->where('number', 'LIKE', "%{$sKeywords}%");
                 });
                 $query->orWhere('cash', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('payment', 'LIKE', "%{$sKeywords}%");
@@ -112,6 +118,8 @@ class PaymentTypesController extends Controller
             $username = $aRow->user->name ?? '';
             $usercnic = $aRow->user->cnic ?? 'N/A';
             $productName = $aRow->product->name ?? 'N/A';
+            $productFloor = $aRow->product->floor ?? 'N/A';
+            $productNumber = $aRow->product->number ?? 'N/A';
             $hotel_id = $aRow->id;
             $payment = $aRow->payment;
             $type = 'None';
@@ -137,6 +145,8 @@ class PaymentTypesController extends Controller
                 @$username,
                 @$usercnic,
                 @$productName,
+                @$productFloor,
+                @$productNumber,
                 @$type,
                 @$action,
             );

@@ -51,6 +51,18 @@
                                             <p class="form-control-static">{{ $paymentType->product->name }}</p>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Product Floor:</strong>
+                                            <p class="form-control-static">{{ $paymentType->product->floor }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Product Number:</strong>
+                                            <p class="form-control-static">{{ $paymentType->product->number }}</p>
+                                        </div>
+                                    </div>
                                     @if ($paymentType->payment == 'cash')
                                         <div class="col-md-6">
                                             <div class="form-group">
