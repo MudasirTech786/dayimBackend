@@ -7,6 +7,7 @@ use App\Http\Controllers\DSAController;
 use App\Http\Controllers\DayimController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\PaymenttypesController;
 use App\Http\Controllers\User\UserController;
 
 
@@ -37,4 +38,4 @@ Route::post('/register', [UserController::class, 'storeUserApi'])->name('api.use
 Route::post("/login", [UserController::class, 'login']);
 Route::post("checkCredentials", [UserController::class, 'checkCredentias']);
 
-Route::apiResource('payment-types', PaymentTypesController::class);
+Route::apiResource('payment-types', PaymenttypesController::class);

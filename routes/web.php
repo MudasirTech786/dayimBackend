@@ -11,7 +11,7 @@ use App\Http\Controllers\DayimController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\PaymentTypesController;
+use App\Http\Controllers\PaymenttypesController;
 use App\Models\Dayim;
 
 /*
@@ -54,8 +54,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('dayim', DayimController::class);
     Route::get('/get_dayim_events', [DayimController::class, 'get_dayim_events']);
 
-    Route::resource('payment', PaymentTypesController::class);
-    Route::get('/get_payment_types', [PaymentTypesController::class, 'get_payment_types']);
+    Route::resource('payment', PaymenttypesController::class);
+    Route::get('/get_payment_types', [PaymenttypesController::class, 'get_payment_types']);
 
     Route::resource('roles', RoleController::class);
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index')->middleware('check.permission:roles-list');
