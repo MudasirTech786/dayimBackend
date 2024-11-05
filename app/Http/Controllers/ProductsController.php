@@ -198,7 +198,7 @@ class ProductsController extends Controller
 
         $result = Product::where('name', 'DSA')->orderBy('created_at', 'DESC');
 
-        $aColumns = ['floor' , 'type' , 'number' , 'sold'];
+        $aColumns = ['name', 'floor' , 'type' , 'number' , 'size', 'sold'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -230,9 +230,11 @@ class ProductsController extends Controller
         if ($sKeywords != "") {
 
             $result->Where(function ($query) use ($sKeywords) {
+                $query->orWhere('name', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('floor', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('type', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('number', 'LIKE', "%{$sKeywords}%");;
+                $query->orWhere('size', 'LIKE', "%{$sKeywords}%");;
                 $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");;
             });
         }
@@ -271,9 +273,11 @@ class ProductsController extends Controller
                           </label>";
 
             $hotel_id = $aRow->id;
+            $name = $aRow->name;
             $floor = $aRow->floor;
             $type = $aRow->type;
             $number = $aRow->number;
+            $size = $aRow->size;
             $sold = $aRow->sold;
 
             $action = "<span class=\"dropdown\">
@@ -288,9 +292,11 @@ class ProductsController extends Controller
 
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
+                @$name,
                 @$floor,
                 @$type,
                 @$number,
+                @$size,
                 @$sold,
                 @$action,
             );

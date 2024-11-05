@@ -63,7 +63,7 @@
                                                 @foreach ($dealers as $dealer)
                                                     <option value="{{ $dealer->name }}"
                                                         {{ $product->dealer == $dealer->name ? 'selected' : '' }}>
-                                                        {{ $dealer->name }}
+                                                        {{ $dealer->name }} ({{ $dealer->cnic }})
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -97,7 +97,7 @@
                                                 @foreach ($users as $user)
                                                     <option value="{{ $user->name }}"
                                                         {{ $product->purchased_by == $user->name ? 'selected' : '' }}>
-                                                        {{ $user->name }}
+                                                        {{ $user->name }} ({{ $user->cnic }})
                                                     </option>
                                                 @endforeach
                                             </select>

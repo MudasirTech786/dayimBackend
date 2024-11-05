@@ -42,7 +42,7 @@
                                             <select class="form-control border-primary" name="dealer" id="dealer">
                                                 <option value="">Select Dealer</option>
                                                 @foreach ($dealers as $dealer)
-                                                    <option value="{{ $dealer->name }}">{{ $dealer->name }}</option>
+                                                    <option value="{{ $dealer->name }}">{{ $dealer->name }} ({{ $dealer->cnic }})</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -68,7 +68,7 @@
                                             <select class="form-control border-primary" name="purchased_by" id="purchased_by">
                                                 <option value="">Select User</option>
                                                 @foreach ($users as $user)
-                                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                    <option value="{{ $user->name }}">{{ $user->name }} ({{ $user->cnic }})</option>
                                                 @endforeach
                                             </select>
                                         </div>
