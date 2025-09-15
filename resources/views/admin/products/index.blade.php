@@ -83,7 +83,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="la la-cars"></i>
-                            <h4 class="card-title">Products</h4>
+                            <h4 class="card-title">DSA Products</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">

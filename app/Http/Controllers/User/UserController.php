@@ -154,49 +154,49 @@ class UserController extends Controller
 
 
     public function login(Request $request)
-{
-    // Validate incoming request
-    $request->validate([
-        'cnic' => 'required|string',
-        'password' => 'required|string',
-    ]);
+    {
+        // Validate incoming request
+        $request->validate([
+            'cnic' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-    try {
-        // Check if the user exists and is active
-        $user = User::where('cnic', $request->cnic)->first();
+        try {
+            // Check if the user exists and is active
+            $user = User::where('cnic', $request->cnic)->first();
 
-        if (!$user) {
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404); // Not Found
+            }
+
+            // Credentials from request
+            $credentials = $request->only('cnic', 'password');
+
+            // Attempt to authenticate the user
+            if (Auth::attempt($credentials)) {
+                // Generate access token for the authenticated user
+                $token = $user->createToken('Personal Access Token')->plainTextToken;
+
+                return response()->json([
+                    'message' => 'Login successful',
+                    'token' => $token,
+                    'user' => $user,
+                ], 200); // OK
+            } else {
+                return response()->json([
+                    'message' => 'Invalid credentials',
+                ], 401); // Unauthorized
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
             return response()->json([
-                'message' => 'User not found',
-            ], 404); // Not Found
+                'message' => 'An error occurred during login',
+                'error' => $e->getMessage()
+            ], 500); // Internal Server Error
         }
-
-        // Credentials from request
-        $credentials = $request->only('cnic', 'password');
-
-        // Attempt to authenticate the user
-        if (Auth::attempt($credentials)) {
-            // Generate access token for the authenticated user
-            $token = $user->createToken('Personal Access Token')->plainTextToken;
-
-            return response()->json([
-                'message' => 'Login successful',
-                'token' => $token,
-                'user' => $user,
-            ], 200); // OK
-        } else {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401); // Unauthorized
-        }
-    } catch (\Exception $e) {
-        // Catch any exceptions and return an error response
-        return response()->json([
-            'message' => 'An error occurred during login',
-            'error' => $e->getMessage()
-        ], 500); // Internal Server Error
     }
-}
 
 
     public function checkCredentias(Request $request)
@@ -227,7 +227,7 @@ class UserController extends Controller
 
         $result = User::where('name', '!=', 'Admin')->orderBy('created_at', 'DESC');
 
-        $aColumns = ['name', 'email', 'cnic', 'phone'];
+        $aColumns = ['name', 'email', 'cnic'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -262,7 +262,6 @@ class UserController extends Controller
                 $query->orWhere('name', 'LIKE', "%{$sKeywords}%");;
                 $query->orWhere('email', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('cnic', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('phone', 'LIKE', "%{$sKeywords}%");
             });
         }
 
@@ -324,7 +323,6 @@ class UserController extends Controller
                 @$name,
                 @$email,
                 @$id_card,
-                @$designation,
                 @$role,
                 @$action,
             );
@@ -358,7 +356,7 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
-        $wasInactive = !$user->active;
+        $previousStatus = $user->active;
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -368,7 +366,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
 
-        $user->active = $request->activeUser;
+        $user->active = $request->active;
 
         if ($request->password) {
             $user->password = Hash::make($request->password);
@@ -383,7 +381,7 @@ class UserController extends Controller
 
         $user->save();
 
-        if ($wasInactive && $user->active) {
+        if ($previousStatus != 1 && $user->active == 1) {
             Mail::to($user->email)->send(new AccountActivated($user));
         }
 

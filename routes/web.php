@@ -44,10 +44,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/product', [ProductsController::class, 'living_index'])->name('products.living_index');
     Route::get('/product/{id}/edit', [ProductsController::class, 'living_edit'])->name('products.living_edit');
     Route::put('/product/{id}', [ProductsController::class, 'living_update'])->name('products.living_update');
+    
+    Route::get('/zindagi_product', [ProductsController::class, 'zindagi_index'])->name('products.zindagi_index');
+    Route::get('/zindagi_product/{id}/edit', [ProductsController::class, 'zindagi_edit'])->name('products.zindagi_edit');
+    Route::put('/zindagi_product/{id}', [ProductsController::class, 'zindagi_update'])->name('products.zindagi_update');
+    Route::delete('/zindagi_product/{id}', [ProductsController::class, 'zindagi_destroy'])->name('products.zindagi_destroy');
+
     Route::get('/products', [ProductsController::class, 'index'])->name('products.index')->middleware('check.permission:users-list');
     Route::get('/get_products', [ProductsController::class, 'get_products']);
     Route::get('/get_living_products', [ProductsController::class, 'get_living_products']);
-    
+    Route::get('/get_zindagi_products', [ProductsController::class, 'get_zindagi_products']);
+
     Route::resource('dsa', DSAController::class);
     Route::get('/get_dsa_events', [DSAController::class, 'get_dsa_events']);
 

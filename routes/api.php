@@ -33,6 +33,7 @@ Route::get('/dm_events', [DayimController::class, 'dm_events_api']);
 Route::post('/contact', [ContactController::class, 'storeApi']);
 
 Route::get('/products', [ProductsController::class, 'apiIndex']);
+Route::get('/zindagi_products', [ProductsController::class, 'zidagiapiIndex']);
 
 Route::post('/register', [UserController::class, 'storeUserApi'])->name('api.users.store');
 Route::post("/login", [UserController::class, 'login']);

@@ -44,13 +44,16 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="name">Product Name</label>
                                             <div class="col-md-9">
-                                                <select class="form-control border-primary" name="name" id="name">
+                                                <select class="form-control border-primary" name="name" id="name" disabled>
                                                     <option value="">Select Option</option>
                                                     <option value="DSA" {{ $product->name == 'DSA' ? 'selected' : '' }}>
                                                         DSA</option>
                                                     <option value="Dayim Living"
                                                         {{ $product->name == 'Dayim Living' ? 'selected' : '' }}>
                                                         Dayim Living</option>
+                                                    <option value="Dayim Zindagi"
+                                                        {{ $product->name == 'Dayim Zindagi' ? 'selected' : '' }}>
+                                                        Dayim Zindagi</option>
                                                 </select>
                                             </div>
                                         </div>

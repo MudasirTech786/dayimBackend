@@ -88,6 +88,12 @@
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="menu-content">
+                                <li class="">
+                                    <a class="menu-item" href="{{ route('products.zindagi_index') }}" data-i18n="nav.dash.ecommerce">Dayim Zindagi
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     @endif
 
