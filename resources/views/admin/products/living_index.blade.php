@@ -110,7 +110,7 @@
                                         <tr>
                                             <th style="width:700px">Floor</th>
                                             <th style="width:700px">Type</th>
-                                            <th style="width:700px">Number</th>
+                                            <th style="width:700px">Size - sq ft</th>
                                             <th style="width:700px">Sold</th>
                                             <th>Action</th>
                                         </tr>

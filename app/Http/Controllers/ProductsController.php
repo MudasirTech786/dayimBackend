@@ -287,7 +287,7 @@ class ProductsController extends Controller
 
         $result = Product::where('name', 'DSA')->orderBy('created_at', 'DESC');
 
-        $aColumns = ['name', 'floor', 'type', 'number', 'size', 'sold'];
+        $aColumns = ['floor', 'type', 'size', 'sold'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -319,12 +319,10 @@ class ProductsController extends Controller
         if ($sKeywords != "") {
 
             $result->Where(function ($query) use ($sKeywords) {
-                $query->orWhere('name', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('floor', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('type', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('number', 'LIKE', "%{$sKeywords}%");;
-                $query->orWhere('size', 'LIKE', "%{$sKeywords}%");;
-                $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");;
+                $query->orWhere('size', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");
             });
         }
 
@@ -362,10 +360,8 @@ class ProductsController extends Controller
                           </label>";
 
             $hotel_id = $aRow->id;
-            $name = $aRow->name;
             $floor = $aRow->floor;
             $type = $aRow->type;
-            $number = $aRow->number;
             $size = $aRow->size;
             $sold = $aRow->sold;
 
@@ -381,10 +377,8 @@ class ProductsController extends Controller
 
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
-                @$name,
                 @$floor,
                 @$type,
-                @$number,
                 @$size,
                 @$sold,
                 @$action,
@@ -400,7 +394,7 @@ class ProductsController extends Controller
 
         $result = Product::where('name', 'Dayim Living')->orderBy('created_at', 'DESC');
 
-        $aColumns = ['floor', 'type', 'number', 'sold'];
+        $aColumns = ['floor', 'type', 'sold', 'size'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -434,8 +428,8 @@ class ProductsController extends Controller
             $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhere('floor', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('type', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('number', 'LIKE', "%{$sKeywords}%");;
-                $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");;
+                $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('size', 'LIKE', "%{$sKeywords}%");
             });
         }
 
@@ -475,8 +469,8 @@ class ProductsController extends Controller
             $hotel_id = $aRow->id;
             $floor = $aRow->floor;
             $type = $aRow->type;
-            $number = $aRow->number;
             $sold = $aRow->sold;
+            $size = $aRow->size;
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -492,7 +486,7 @@ class ProductsController extends Controller
                 "DT_RowId" => "row_{$aRow->id}",
                 @$floor,
                 @$type,
-                @$number,
+                @$size,
                 @$sold,
                 @$action,
             );
@@ -507,7 +501,7 @@ class ProductsController extends Controller
 
         $result = ZindagiProduct::where('name', 'Dayim Zindagi')->orderBy('created_at', 'DESC');
 
-        $aColumns = ['floor', 'type', 'number', 'sold'];
+        $aColumns = ['floor', 'type', 'sold', 'size'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -541,8 +535,8 @@ class ProductsController extends Controller
             $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhere('floor', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('dz_type', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('number', 'LIKE', "%{$sKeywords}%");;
-                $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");;
+                $query->orWhere('sold', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('size', 'LIKE', "%{$sKeywords}%");
             });
         }
 
@@ -582,7 +576,7 @@ class ProductsController extends Controller
             $hotel_id = $aRow->id;
             $floor = $aRow->floor;
             $type = $aRow->dz_type . ' - ' . $aRow->subtype;
-            $number = $aRow->number;
+            $size = $aRow->size;
             $sold = $aRow->sold;
 
             $action = "<span class=\"dropdown\">
@@ -599,7 +593,7 @@ class ProductsController extends Controller
                 "DT_RowId" => "row_{$aRow->id}",
                 @$floor,
                 @$type,
-                @$number,
+                @$size,
                 @$sold,
                 @$action,
             );
