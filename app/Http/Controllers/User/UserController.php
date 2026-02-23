@@ -381,9 +381,9 @@ class UserController extends Controller
 
         $user->save();
 
-        if ($previousStatus != 1 && $user->active == 1) {
-            Mail::to($user->email)->send(new AccountActivated($user));
-        }
+        // if ($previousStatus != 1 && $user->active == 1) {
+        //     Mail::to($user->email)->send(new AccountActivated($user));
+        // }
 
         // Handle roles update
         $roles = $request->input('roles');
